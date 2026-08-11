@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AGOS | Designer</title>
+    <title>AGOS Design | Identidade Visual & Design Gráfico</title>
     <!-- Ícones do Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
@@ -58,7 +58,7 @@
         .s12 { top: 10%; right: 25%; font-size: 1.6rem; }
 
         /* Conteúdo principal */
-        header, section, h2, footer, .projects {
+        header, section, h2, footer, .projects, .services {
             position: relative;
             z-index: 2;
         }
@@ -74,7 +74,7 @@
 
         .logo {
             font-weight: 700;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             letter-spacing: 1px;
             color: #5c82b5;
         }
@@ -95,10 +95,13 @@
             font-weight: 600;
             font-size: 0.9rem;
             transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .contact-btn:hover {
-            background-color: #3b3d45;
+            background-color: #25d366;
         }
 
         .social-icon {
@@ -117,13 +120,13 @@
 
         /* Hero */
         .hero {
-            margin: 5rem 0;
+            margin: 4rem 0;
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 500;
-            max-width: 800px;
+            max-width: 850px;
             color: #1a2332;
             display: inline-block;
         }
@@ -137,12 +140,51 @@
             color: #5c82b5;
         }
 
+        .section-title {
+            font-size: 1.6rem;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            color: #1a2332;
+        }
+
+        /* Serviços */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .service-card {
+            background: #ffffff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #dcdfe4;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+
+        .service-card i {
+            font-size: 1.8rem;
+            color: #5c82b5;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #1a2332;
+        }
+
+        .service-card p {
+            color: #6b7c93;
+            font-size: 0.88rem;
+        }
+
         /* Projetos */
         .projects {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
         }
 
         .project-card {
@@ -211,54 +253,85 @@
     <div class="star-bg s12">✦</div>
 
     <header>
-        <div class="logo">AGOS</div>
+        <div class="logo">AGOS DESIGN</div>
         <div class="nav-actions">
-            <a href="mailto:arethaguinevere.dg@gmail.com" class="contact-btn">Vamos conversar</a>
-            <a href="https://instagram.com/agosdsgn" target="_blank" class="social-icon">
+            <!-- INSIRA SEU NÚMERO COM DDD NO LINK ABAIXO (substitua o SEUNUMERO) -->
+            <a href="https://wa.me/55SEUNUMERO?text=Olá,%20gostaria%20de%20fazer%20um%20orçamento%20de%20design!" target="_blank" class="contact-btn">
+                <i class="fa-brands fa-whatsapp"></i> Solicitar Orçamento
+            </a>
+            <a href="https://instagram.com/agosdsgn" target="_blank" class="social-icon" title="Instagram">
                 <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="mailto:arethaguinevere.dg@gmail.com" class="social-icon" title="E-mail">
+                <i class="fa-regular fa-envelope"></i>
             </a>
         </div>
     </header>
 
     <section class="hero">
-        <h1 class="js-obstacle">Designer de Interfaces & Marcas. <span>Transformando ideias complexas em experiências visuais simples e marcantes.</span></h1>
+        <h1 class="js-obstacle">Criação e desdobramento visual. <span>Transformando a presença da sua marca com design gráfico autêntico e estratégico.</span></h1>
     </section>
 
-    <h2>Projetos em Destaque</h2>
+    <h2 class="section-title">Serviços Especializados</h2>
+
+    <section class="services">
+        <div class="service-card">
+            <i class="fa-solid fa-pen-nib"></i>
+            <h3>Identidade Visual</h3>
+            <p>Criação de marcas marcantes, logos, paleta de cores, tipografia e manuais de marca completos.</p>
+        </div>
+        <div class="service-card">
+            <i class="fa-solid fa-hashtag"></i>
+            <h3>Redes Sociais</h3>
+            <p>Artes estratégicas para feed, stories, destaques e desdobramentos visuais para campanhas.</p>
+        </div>
+        <div class="service-card">
+            <i class="fa-solid fa-print"></i>
+            <h3>Papelaria</h3>
+            <p>Design para materiais impressos: cartazes, flyers, cartões de visita, folders e catálogos.</p>
+        </div>
+        <div class="service-card">
+            <i class="fa-solid fa-vector-square"></i>
+            <h3>Ambientação</h3>
+            <p>Comunicação visual para eventos e espaços: banners, backdrops, credenciais e sinalização.</p>
+        </div>
+    </section>
+
+    <h2 class="section-title">Projetos em Destaque</h2>
 
     <section class="projects">
         
         <!-- PROJETO 1 -->
         <div class="project-card">
-            <img class="project-img" src="p1.jpeg.jpeg" alt="Projeto 1">
+            <img class="project-img" src="p1.jpeg.jpeg" alt="Identidade Visual">
             <div class="project-info">
-                <h3>Redesign App Financeiro</h3>
-                <p>UI/UX Design • Mobile App</p>
+                <h3>Projeto de Identidade Visual</h3>
+                <p>Criação de Marca • Design Gráfico</p>
             </div>
         </div>
 
         <!-- PROJETO 2 -->
         <div class="project-card">
-            <img class="project-img" src="p2.jpeg.jpeg" alt="Projeto 2">
+            <img class="project-img" src="p2.jpeg.jpeg" alt="Redes Sociais">
             <div class="project-info">
-                <h3>Identidade Visual Studio X</h3>
-                <p>Branding • Design Gráfico</p>
+                <h3>Campanha para Redes Sociais</h3>
+                <p>Artes digitais • Desdobramento de Conteúdo</p>
             </div>
         </div>
 
         <!-- PROJETO 3 -->
         <div class="project-card">
-            <img class="project-img" src="p3.jpeg.jpeg" alt="Projeto 3">
+            <img class="project-img" src="p3.jpeg.jpeg" alt="Papelaria e Ambientação">
             <div class="project-info">
-                <h3>E-commerce de Moda</h3>
-                <p>Web Design • E-commerce</p>
+                <h3>Papelaria & Material de Evento</h3>
+                <p>Flyer • Banner • Credenciais</p>
             </div>
         </div>
 
     </section>
 
     <footer>
-        <p>© 2026 Aretha Guinevere. Todos os direitos reservados.</p>
+        <p>© 2026 AGOS Design. Todos os direitos reservados.</p>
     </footer>
 
     <!-- Bibliotecas GSAP -->

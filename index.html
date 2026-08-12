@@ -38,7 +38,7 @@
             opacity: 0.6;
             user-select: none;
             cursor: grab;
-            z-index: 2 !important; /* Na frente do fundo, visível */
+            z-index: 2 !important;
             transition: color 0.2s;
         }
 
@@ -47,7 +47,7 @@
             color: #3b5998;
         }
 
-        /* CONTEÚDO DO SITE (Cards no topo do z-index) */
+        /* CONTEÚDO DO SITE */
         header, section, h2, footer, .services, .projects, .hero h1 {
             position: relative;
             z-index: 10;
@@ -236,7 +236,14 @@
 </head>
 <body>
 
-    <!-- 5 Estrelas Arrastáveis em posições visíveis e fixas -->
+    <!-- 12 Estrelas Arrastáveis -->
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
     <div class="star-bg">✦</div>
     <div class="star-bg">✦</div>
     <div class="star-bg">✦</div>
@@ -333,26 +340,31 @@
 
         const stars = document.querySelectorAll('.star-bg');
 
-        // Posições FIXAS, VISÍVEIS e 100% dentro do corpo da página:
-        // topPercent: % em relação ao topo | leftPercent: % da largura do container
+        // Mapeamento fixo de 12 posições espalhadas e longe dos cards/textos
         const fixedPositions = [
-            { leftPercent: 88, topPercent: 20, size: 1.8 }, // Lado direito do texto do Hero
-            { leftPercent: 50, topPercent: 32, size: 1.4 }, // Abaixo do texto do Hero, bem no centro
-            { leftPercent: 5,  topPercent: 38, size: 1.6 }, // Lado esquerdo do título "Serviços Especializados"
-            { leftPercent: 93, topPercent: 62, size: 1.7 }, // Espaço vago à direita entre Serviços e Projetos
-            { leftPercent: 8,  topPercent: 88, size: 1.9 }  // Espaço vago à esquerda perto do Footer
+            { x: 880, y: 180, size: 1.8 }, // 1. Direita do Hero
+            { x: 450, y: 310, size: 1.3 }, // 2. Abaixo do Hero (centro)
+            { x: 10,  y: 380, size: 1.6 }, // 3. Esquerda do título Serviços
+            { x: 1040, y: 380, size: 1.5 },// 4. Direita do título Serviços
+            { x: 250, y: 730, size: 1.4 }, // 5. Entre cards de Serviços
+            { x: 780, y: 730, size: 1.7 }, // 6. Vão dos Serviços (direita)
+            { x: 1020, y: 720, size: 1.8 },// 7. Borda direita (meio)
+            { x: 10,  y: 770, size: 1.9 }, // 8. Borda esquerda (meio)
+            { x: 10,  y: 920, size: 1.4 }, // 9. Esquerda de "Projetos em Destaque"
+            { x: 1030, y: 920, size: 1.6 },// 10. Direita de "Projetos em Destaque"
+            { x: 50,  y: 1300, size: 1.9 },// 11. Embaixo à esquerda (perto do footer)
+            { x: 980, y: 1300, size: 1.5 } // 12. Embaixo à direita (perto do footer)
         ];
 
         stars.forEach((star, index) => {
             const config = fixedPositions[index];
             if (!config) return;
 
-            // Define o CSS usando top/left relativos ao Body do site
-            star.style.left = config.leftPercent + '%';
-            star.style.top = config.topPercent + '%';
             star.style.fontSize = config.size + 'rem';
 
-            // Habilita o arrasto mantendo a origem certinha
+            // Posiciona pelo GSAP
+            gsap.set(star, { x: config.x, y: config.y });
+
             Draggable.create(star, {
                 type: "x,y",
                 bounds: "body",

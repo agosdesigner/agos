@@ -31,14 +31,14 @@
             overflow-x: hidden;
         }
 
-        /* ESTRELAS DE FUNDO INTERATIVAS */
+        /* ESTRELAS DE FUNDO (Sempre na camada 1, no fundo) */
         .star-bg {
             position: absolute;
             color: #5c82b5;
             opacity: 0.6;
             user-select: none;
             cursor: grab;
-            z-index: 10;
+            z-index: 1 !important; /* Garante que fique atrás de tudo */
             transition: color 0.2s, transform 0.1s;
         }
 
@@ -47,10 +47,10 @@
             color: #3b5998;
         }
 
-        /* Conteúdo principal */
-        header, section, h2, footer, .services {
+        /* CONTEÚDO DO SITE (Sempre na camada 2 ou superior, na frente das estrelas) */
+        header, section, h2, footer, .services, .projects, .hero h1 {
             position: relative;
-            z-index: 2;
+            z-index: 10; /* Garante que todos os textos e cards fiquem na frente */
         }
 
         /* Header */
@@ -170,13 +170,11 @@
             font-size: 0.88rem;
         }
 
-        /* Projetos - Ficando à frente das estrelas (z-index: 20) */
+        /* Projetos */
         .projects {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            position: relative;
-            z-index: 20;
         }
 
         .project-card {
@@ -260,7 +258,7 @@
     </header>
 
     <section class="hero">
-        <h1 class="js-obstacle">Criação e desdobramento visual. <span>Transformando a presença da sua marca com design gráfico autêntico e estratégico.</span></h1>
+        <h1>Criação e desdobramento visual. <span>Transformando a presença da sua marca com design gráfico autêntico e estratégico.</span></h1>
     </section>
 
     <h2 class="section-title">Serviços Especializados</h2>
@@ -332,20 +330,12 @@
     <script>
         gsap.registerPlugin(Draggable);
 
-        // Elementos que servem de barreira ao arrastar
-        const obstacles = [
-            document.querySelector('.js-obstacle'),
-            document.querySelector('.projects')
-        ];
-
-        // Posiciona as estrelas GARANTINDO que fiquem acima da seção de projetos
+        // Posiciona as estrelas aleatoriamente pela altura total da página
         const stars = document.querySelectorAll('.star-bg');
-        const projectsSec = document.querySelector('.projects');
-
-        const projectsTop = projectsSec ? projectsSec.offsetTop - 30 : window.innerHeight / 2;
+        const bodyHeight = document.body.scrollHeight;
 
         stars.forEach(star => {
-            const randomTopPixels = Math.floor(Math.random() * (projectsTop - 60)) + 20; 
+            const randomTopPixels = Math.floor(Math.random() * (bodyHeight - 200)) + 50; 
             const randomLeftPercent = Math.floor(Math.random() * 85) + 5;
             const randomSize = (Math.random() * 1.3 + 1.2).toFixed(1);
 
@@ -354,57 +344,17 @@
             star.style.fontSize = randomSize + 'rem';
         });
 
-        // Configuração do Arrastar com Barreira de Colisão
+        // Torna as estrelas arrastáveis livremente pelo fundo da tela
         Draggable.create(".star-bg", {
             type: "x,y",
             bounds: "body",
             edgeResistance: 0.65,
-            
-            liveSnap: {
-                x: function(value) {
-                    const starRect = this.target.getBoundingClientRect();
-                    const currentY = starRect.top;
-
-                    for (let obstacle of obstacles) {
-                        if (!obstacle) continue;
-                        const obsRect = obstacle.getBoundingClientRect();
-
-                        if (currentY + starRect.height > obsRect.top && currentY < obsRect.bottom) {
-                            const starLeft = starRect.left;
-                            const starRight = starRect.right;
-
-                            if (starRight > obsRect.left && starLeft < obsRect.left) {
-                                return value - (starRight - obsRect.left);
-                            }
-                            if (starLeft < obsRect.right && starRight > obsRect.right) {
-                                return value + (obsRect.right - starLeft);
-                            }
-                        }
-                    }
-                    return value;
-                },
-                y: function(value) {
-                    const starRect = this.target.getBoundingClientRect();
-                    const currentX = starRect.left;
-
-                    for (let obstacle of obstacles) {
-                        if (!obstacle) continue;
-                        const obsRect = obstacle.getBoundingClientRect();
-
-                        if (currentX + starRect.width > obsRect.left && currentX < obsRect.right) {
-                            const starTop = starRect.top;
-                            const starBottom = starRect.bottom;
-
-                            if (starBottom > obsRect.top && starTop < obsRect.top) {
-                                return value - (starBottom - obsRect.top);
-                            }
-                            if (starTop < obsRect.bottom && starBottom > obsRect.bottom) {
-                                return value + (obsRect.bottom - starTop);
-                            }
-                        }
-                    }
-                    return value;
-                }
+            onPress: function() {
+                // Força o z-index a continuar no fundo mesmo quando clicado/arrastado
+                this.target.style.zIndex = "1";
+            },
+            onDrag: function() {
+                this.target.style.zIndex = "1";
             }
         });
     </script>

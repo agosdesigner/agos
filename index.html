@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AGOS Design | Identidade Visual & Design Gráfico</title>
+    
+    <!-- FAVICON (Ícone da aba - certifique-se de ter um arquivo chamado favicon.png na mesma pasta) -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
     <!-- Ícones do Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
@@ -42,20 +46,6 @@
             cursor: grabbing;
             color: #3b5998;
         }
-
-        /* Posições iniciais das 12 estrelas */
-        .s1  { top: 10%; left: 3%;  font-size: 1.8rem; }
-        .s2  { top: 18%; right: 5%; font-size: 2.5rem; }
-        .s3  { top: 40%; right: 12%; font-size: 1.4rem; }
-        .s4  { top: 60%; left: 2%;  font-size: 2rem; }
-        .s5  { top: 75%; right: 4%; font-size: 1.6rem; }
-        .s6  { top: 88%; left: 8%;  font-size: 2.2rem; }
-        .s7  { top: 28%; left: 75%; font-size: 1.5rem; }
-        .s8  { top: 48%; left: 4%;  font-size: 2.3rem; }
-        .s9  { top: 62%; right: 8%; font-size: 1.8rem; }
-        .s10 { top: 80%; left: 15%; font-size: 1.3rem; }
-        .s11 { top: 92%; right: 6%; font-size: 2.0rem; }
-        .s12 { top: 10%; right: 25%; font-size: 1.6rem; }
 
         /* Conteúdo principal */
         header, section, h2, footer, .projects, .services {
@@ -238,19 +228,19 @@
 </head>
 <body>
 
-    <!-- 12 Estrelas arrastáveis -->
-    <div class="star-bg s1">✦</div>
-    <div class="star-bg s2">✦</div>
-    <div class="star-bg s3">✦</div>
-    <div class="star-bg s4">✦</div>
-    <div class="star-bg s5">✦</div>
-    <div class="star-bg s6">✦</div>
-    <div class="star-bg s7">✦</div>
-    <div class="star-bg s8">✦</div>
-    <div class="star-bg s9">✦</div>
-    <div class="star-bg s10">✦</div>
-    <div class="star-bg s11">✦</div>
-    <div class="star-bg s12">✦</div>
+    <!-- 12 Estrelas arrastáveis (Posicionadas via JS) -->
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
+    <div class="star-bg">✦</div>
 
     <header>
         <div class="logo">AGOS DESIGN</div>
@@ -340,6 +330,20 @@
     <script>
         gsap.registerPlugin(Draggable);
 
+        // Distribui as estrelas aleatoriamente pela página
+        const stars = document.querySelectorAll('.star-bg');
+
+        stars.forEach(star => {
+            const randomTop = Math.floor(Math.random() * 85) + 5;
+            const randomLeft = Math.floor(Math.random() * 85) + 5;
+            const randomSize = (Math.random() * 1.3 + 1.2).toFixed(1);
+
+            star.style.top = randomTop + '%';
+            star.style.left = randomLeft + '%';
+            star.style.fontSize = randomSize + 'rem';
+        });
+
+        // Configuração de Arrastar e Colisão com o Título
         const obstacle = document.querySelector('.js-obstacle');
 
         Draggable.create(".star-bg", {
@@ -347,23 +351,19 @@
             bounds: "body",
             edgeResistance: 0.65,
             
-            // Lógica de LiveSnap: impede a entrada da estrela antes que ela toque no texto
             liveSnap: {
                 x: function(value) {
                     const obsRect = obstacle.getBoundingClientRect();
                     const starRect = this.target.getBoundingClientRect();
                     const currentY = starRect.top;
 
-                    // Se a estrela está na mesma faixa de altura (Y) do texto
                     if (currentY + starRect.height > obsRect.top && currentY < obsRect.bottom) {
                         const starLeft = starRect.left;
                         const starRight = starRect.right;
 
-                        // Se tentar entrar pelo lado esquerdo do texto
                         if (starRight > obsRect.left && starLeft < obsRect.left) {
                             return value - (starRight - obsRect.left);
                         }
-                        // Se tentar entrar pelo lado direito do texto
                         if (starLeft < obsRect.right && starRight > obsRect.right) {
                             return value + (obsRect.right - starLeft);
                         }
@@ -375,16 +375,13 @@
                     const starRect = this.target.getBoundingClientRect();
                     const currentX = starRect.left;
 
-                    // Se a estrela está na mesma faixa de largura (X) do texto
                     if (currentX + starRect.width > obsRect.left && currentX < obsRect.right) {
                         const starTop = starRect.top;
                         const starBottom = starRect.bottom;
 
-                        // Se tentar entrar por cima do texto
                         if (starBottom > obsRect.top && starTop < obsRect.top) {
                             return value - (starBottom - obsRect.top);
                         }
-                        // Se tentar entrar por baixo do texto
                         if (starTop < obsRect.bottom && starBottom > obsRect.bottom) {
                             return value + (obsRect.bottom - starTop);
                         }

@@ -34,13 +34,11 @@
         /* ESTRELAS DE FUNDO INTERATIVAS */
         .star-bg {
             position: absolute;
-            top: 0;
-            left: 0;
             color: #5c82b5;
             opacity: 0.6;
             user-select: none;
             cursor: grab;
-            z-index: 1 !important;
+            z-index: 2 !important; /* Na frente do fundo, visível */
             transition: color 0.2s;
         }
 
@@ -49,7 +47,7 @@
             color: #3b5998;
         }
 
-        /* CONTEÚDO DO SITE (Sempre na frente das estrelas) */
+        /* CONTEÚDO DO SITE (Cards no topo do z-index) */
         header, section, h2, footer, .services, .projects, .hero h1 {
             position: relative;
             z-index: 10;
@@ -227,7 +225,7 @@
             font-size: 0.85rem;
         }
 
-        /* Estrela fixa no footer */
+        /* Estrela FIXA no footer (sem arrastar) */
         .footer-star {
             color: #5c82b5;
             margin-right: 6px;
@@ -238,8 +236,7 @@
 </head>
 <body>
 
-    <!-- Estrelas Arrastáveis (Posições fixas no JS) -->
-    <div class="star-bg">✦</div>
+    <!-- 5 Estrelas Arrastáveis em posições visíveis e fixas -->
     <div class="star-bg">✦</div>
     <div class="star-bg">✦</div>
     <div class="star-bg">✦</div>
@@ -336,38 +333,35 @@
 
         const stars = document.querySelectorAll('.star-bg');
 
-        // Posições FIXAS e estratégicas longe dos cards e textos:
-        // [X em %, Y em Pixels, tamanho em rem]
+        // Posições FIXAS, VISÍVEIS e 100% dentro do corpo da página:
+        // topPercent: % em relação ao topo | leftPercent: % da largura do container
         const fixedPositions = [
-            { x: 3,   y: 40,  size: 1.8 }, // Topo esquerdo (perto do logo)
-            { x: 92,  y: 70,  size: 1.5 }, // Topo direito
-            { x: 50,  y: 20,  size: 1.3 }, // Centro bem no topo
-            { x: 2,   y: 650, size: 2.0 }, // Na lateral esquerda da seção de serviços
-            { x: 94,  y: 700, size: 1.6 }, // Na lateral direita da seção de serviços
-            { x: 3,   y: 1100, size: 1.7 } // Na lateral esquerda da seção de projetos
+            { leftPercent: 88, topPercent: 20, size: 1.8 }, // Lado direito do texto do Hero
+            { leftPercent: 50, topPercent: 32, size: 1.4 }, // Abaixo do texto do Hero, bem no centro
+            { leftPercent: 5,  topPercent: 38, size: 1.6 }, // Lado esquerdo do título "Serviços Especializados"
+            { leftPercent: 93, topPercent: 62, size: 1.7 }, // Espaço vago à direita entre Serviços e Projetos
+            { leftPercent: 8,  topPercent: 88, size: 1.9 }  // Espaço vago à esquerda perto do Footer
         ];
 
         stars.forEach((star, index) => {
-            const config = fixedPositions[index] || { x: 5, y: 100, size: 1.5 };
-            
-            // Calcula o X em pixels baseado na largura atual da tela
-            const xPixels = (window.innerWidth * config.x) / 100;
+            const config = fixedPositions[index];
+            if (!config) return;
 
+            // Define o CSS usando top/left relativos ao Body do site
+            star.style.left = config.leftPercent + '%';
+            star.style.top = config.topPercent + '%';
             star.style.fontSize = config.size + 'rem';
 
-            // Aplica a posição inicial fixa sem pulo
-            gsap.set(star, { x: xPixels, y: config.y });
-
-            // Habilita o arrasto livre
+            // Habilita o arrasto mantendo a origem certinha
             Draggable.create(star, {
                 type: "x,y",
                 bounds: "body",
                 edgeResistance: 0.65,
                 onPress: function() {
-                    this.target.style.zIndex = "1";
+                    this.target.style.zIndex = "20";
                 },
                 onDrag: function() {
-                    this.target.style.zIndex = "1";
+                    this.target.style.zIndex = "20";
                 }
             });
         });

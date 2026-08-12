@@ -38,7 +38,7 @@
             opacity: 0.6;
             user-select: none;
             cursor: grab;
-            z-index: 1 !important; /* Garante que fique atrás de tudo */
+            z-index: 1 !important;
             transition: color 0.2s, transform 0.1s;
         }
 
@@ -47,10 +47,10 @@
             color: #3b5998;
         }
 
-        /* CONTEÚDO DO SITE (Sempre na camada 2 ou superior, na frente das estrelas) */
+        /* CONTEÚDO DO SITE (Sempre na camada 10, na frente das estrelas) */
         header, section, h2, footer, .services, .projects, .hero h1 {
             position: relative;
-            z-index: 10; /* Garante que todos os textos e cards fiquem na frente */
+            z-index: 10;
         }
 
         /* Header */
@@ -330,12 +330,28 @@
     <script>
         gsap.registerPlugin(Draggable);
 
-        // Posiciona as estrelas aleatoriamente pela altura total da página
         const stars = document.querySelectorAll('.star-bg');
-        const bodyHeight = document.body.scrollHeight;
+        const servicesSec = document.querySelector('.services');
+        const projectsSec = document.querySelector('.projects');
+
+        // Mapeia os limites da área proibida (entre o topo dos serviços e o fim dos projetos)
+        const zoneTopEnd = servicesSec ? (servicesSec.offsetTop - 40) : 300;
+        const zoneBottomStart = projectsSec ? (projectsSec.offsetTop + projectsSec.offsetHeight + 20) : 1000;
+        const totalHeight = document.body.scrollHeight;
 
         stars.forEach(star => {
-            const randomTopPixels = Math.floor(Math.random() * (bodyHeight - 200)) + 50; 
+            let randomTopPixels;
+
+            // Sorteia 50% para nascer no topo (Hero) e 50% no rodapé (Footer)
+            if (Math.random() < 0.5) {
+                // Zona de cima (Hero/Header)
+                randomTopPixels = Math.floor(Math.random() * (zoneTopEnd - 60)) + 60;
+            } else {
+                // Zona de baixo (Footer)
+                const availableBottomSpace = Math.max(100, totalHeight - zoneBottomStart - 100);
+                randomTopPixels = Math.floor(Math.random() * availableBottomSpace) + zoneBottomStart;
+            }
+
             const randomLeftPercent = Math.floor(Math.random() * 85) + 5;
             const randomSize = (Math.random() * 1.3 + 1.2).toFixed(1);
 
@@ -344,13 +360,12 @@
             star.style.fontSize = randomSize + 'rem';
         });
 
-        // Torna as estrelas arrastáveis livremente pelo fundo da tela
+        // Torna as estrelas arrastáveis livremente pelo fundo da página
         Draggable.create(".star-bg", {
             type: "x,y",
             bounds: "body",
             edgeResistance: 0.65,
             onPress: function() {
-                // Força o z-index a continuar no fundo mesmo quando clicado/arrastado
                 this.target.style.zIndex = "1";
             },
             onDrag: function() {

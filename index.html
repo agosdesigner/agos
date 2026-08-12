@@ -49,7 +49,7 @@
             color: #3b5998;
         }
 
-        /* CONTEÚDO DO SITE (Sempre na camada 10, na frente das estrelas) */
+        /* CONTEÚDO DO SITE (Sempre na frente das estrelas) */
         header, section, h2, footer, .services, .projects, .hero h1 {
             position: relative;
             z-index: 10;
@@ -226,17 +226,19 @@
             color: #8c9ba5;
             font-size: 0.85rem;
         }
+
+        /* Estrela fixa no footer */
+        .footer-star {
+            color: #5c82b5;
+            margin-right: 6px;
+            display: inline-block;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
 
-    <!-- 12 Estrelas arrastáveis -->
-    <div class="star-bg">✦</div>
-    <div class="star-bg">✦</div>
-    <div class="star-bg">✦</div>
-    <div class="star-bg">✦</div>
-    <div class="star-bg">✦</div>
-    <div class="star-bg">✦</div>
+    <!-- Estrelas Arrastáveis (Posições fixas no JS) -->
     <div class="star-bg">✦</div>
     <div class="star-bg">✦</div>
     <div class="star-bg">✦</div>
@@ -322,7 +324,7 @@
     </section>
 
     <footer>
-        <p>© 2026 AGOS Design. Todos os direitos reservados.</p>
+        <p><span class="footer-star">✦</span>© 2026 AGOS Design. Todos os direitos reservados.</p>
     </footer>
 
     <!-- Bibliotecas GSAP -->
@@ -333,45 +335,30 @@
         gsap.registerPlugin(Draggable);
 
         const stars = document.querySelectorAll('.star-bg');
-        const servicesSec = document.querySelector('.services');
-        const projectsSec = document.querySelector('.projects');
 
-        function getValidStarPosition() {
-            const bodyWidth = document.body.clientWidth;
-            const bodyHeight = document.body.scrollHeight;
+        // Posições FIXAS e estratégicas longe dos cards e textos:
+        // [X em %, Y em Pixels, tamanho em rem]
+        const fixedPositions = [
+            { x: 3,   y: 40,  size: 1.8 }, // Topo esquerdo (perto do logo)
+            { x: 92,  y: 70,  size: 1.5 }, // Topo direito
+            { x: 50,  y: 20,  size: 1.3 }, // Centro bem no topo
+            { x: 2,   y: 650, size: 2.0 }, // Na lateral esquerda da seção de serviços
+            { x: 94,  y: 700, size: 1.6 }, // Na lateral direita da seção de serviços
+            { x: 3,   y: 1100, size: 1.7 } // Na lateral esquerda da seção de projetos
+        ];
 
-            const topBoundary = servicesSec ? (servicesSec.offsetTop - 30) : 400;
-            const bottomBoundary = projectsSec ? (projectsSec.offsetTop + projectsSec.offsetHeight + 30) : 1200;
+        stars.forEach((star, index) => {
+            const config = fixedPositions[index] || { x: 5, y: 100, size: 1.5 };
             
-            const leftBoundary = servicesSec ? servicesSec.offsetLeft : (bodyWidth * 0.1);
-            const rightBoundary = servicesSec ? (servicesSec.offsetLeft + servicesSec.offsetWidth) : (bodyWidth * 0.9);
+            // Calcula o X em pixels baseado na largura atual da tela
+            const xPixels = (window.innerWidth * config.x) / 100;
 
-            let x, y, isInsideForbiddenZone;
+            star.style.fontSize = config.size + 'rem';
 
-            do {
-                x = Math.floor(Math.random() * (bodyWidth - 60)) + 20;
-                y = Math.floor(Math.random() * (bodyHeight - 100)) + 30;
+            // Aplica a posição inicial fixa sem pulo
+            gsap.set(star, { x: xPixels, y: config.y });
 
-                const isYInside = (y >= topBoundary && y <= bottomBoundary);
-                const isXInside = (x >= leftBoundary && x <= rightBoundary);
-
-                isInsideForbiddenZone = isYInside && isXInside;
-
-            } while (isInsideForbiddenZone);
-
-            return { x, y };
-        }
-
-        // Posiciona as estrelas via GSAP e habilita o arrasto no mesmo elemento
-        stars.forEach(star => {
-            const pos = getValidStarPosition();
-            const randomSize = (Math.random() * 1.3 + 1.2).toFixed(1);
-
-            star.style.fontSize = randomSize + 'rem';
-
-            // Define a posição inicial usando GSAP
-            gsap.set(star, { x: pos.x, y: pos.y });
-
+            // Habilita o arrasto livre
             Draggable.create(star, {
                 type: "x,y",
                 bounds: "body",

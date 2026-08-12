@@ -323,7 +323,7 @@
         <p>© 2026 AGOS Design. Todos os direitos reservados.</p>
     </footer>
 
-    <!-- Bibliotecas GSAP -->
+<!-- Bibliotecas GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
 
@@ -334,33 +334,49 @@
         const servicesSec = document.querySelector('.services');
         const projectsSec = document.querySelector('.projects');
 
-        // Mapeia os limites da área proibida (entre o topo dos serviços e o fim dos projetos)
-        const zoneTopEnd = servicesSec ? (servicesSec.offsetTop - 40) : 300;
-        const zoneBottomStart = projectsSec ? (projectsSec.offsetTop + projectsSec.offsetHeight + 20) : 1000;
-        const totalHeight = document.body.scrollHeight;
+        // Função que gera a posição validando se NÃO caiu na "caixa proibida"
+        function getValidStarPosition() {
+            const bodyWidth = document.body.clientWidth;
+            const bodyHeight = document.body.scrollHeight;
 
+            // Define o retângulo da área proibida (cards de serviços + projetos)
+            const topBoundary = servicesSec ? (servicesSec.offsetTop - 30) : 400;
+            const bottomBoundary = projectsSec ? (projectsSec.offsetTop + projectsSec.offsetHeight + 30) : 1200;
+            
+            // Pega as margens da área de conteúdo (onde ficam os cards no meio)
+            const leftBoundary = servicesSec ? servicesSec.offsetLeft : (bodyWidth * 0.1);
+            const rightBoundary = servicesSec ? (servicesSec.offsetLeft + servicesSec.offsetWidth) : (bodyWidth * 0.9);
+
+            let x, y, isInsideForbiddenZone;
+
+            // Fica sorteando até achar uma posição fora da caixa proibida
+            do {
+                // Sorteia em Pixels pra ter precisão
+                x = Math.floor(Math.random() * (bodyWidth - 60)) + 20;
+                y = Math.floor(Math.random() * (bodyHeight - 100)) + 30;
+
+                // Verifica se caíu dentro do retângulo proibido
+                const isYInside = (y >= topBoundary && y <= bottomBoundary);
+                const isXInside = (x >= leftBoundary && x <= rightBoundary);
+
+                isInsideForbiddenZone = isYInside && isXInside;
+
+            } while (isInsideForbiddenZone);
+
+            return { x, y };
+        }
+
+        // Posiciona cada estrela
         stars.forEach(star => {
-            let randomTopPixels;
-
-            // Sorteia 50% para nascer no topo (Hero) e 50% no rodapé (Footer)
-            if (Math.random() < 0.5) {
-                // Zona de cima (Hero/Header)
-                randomTopPixels = Math.floor(Math.random() * (zoneTopEnd - 60)) + 60;
-            } else {
-                // Zona de baixo (Footer)
-                const availableBottomSpace = Math.max(100, totalHeight - zoneBottomStart - 100);
-                randomTopPixels = Math.floor(Math.random() * availableBottomSpace) + zoneBottomStart;
-            }
-
-            const randomLeftPercent = Math.floor(Math.random() * 85) + 5;
+            const pos = getValidStarPosition();
             const randomSize = (Math.random() * 1.3 + 1.2).toFixed(1);
 
-            star.style.top = randomTopPixels + 'px';
-            star.style.left = randomLeftPercent + '%';
+            star.style.top = pos.y + 'px';
+            star.style.left = pos.x + 'px';
             star.style.fontSize = randomSize + 'rem';
         });
 
-        // Torna as estrelas arrastáveis livremente pelo fundo da página
+        // Arrastar livre pelo fundo
         Draggable.create(".star-bg", {
             type: "x,y",
             bounds: "body",

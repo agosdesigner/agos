@@ -31,26 +31,20 @@
             overflow-x: hidden;
         }
 
-        /* ESTRELAS DE FUNDO INTERATIVAS */
+        /* ESTRELAS DE FUNDO INTERATIVAS (Sempre no topo para você conseguir arrastar) */
         .star-bg {
             position: absolute;
             color: #5c82b5;
-            opacity: 0.6;
+            opacity: 0.7;
             user-select: none;
             cursor: grab;
-            z-index: 2 !important;
-            transition: color 0.2s;
+            z-index: 9999 !important; /* Na frente de TUDO pra clicar sem erro */
+            transition: color 0.2s, transform 0.1s;
         }
 
         .star-bg:active {
             cursor: grabbing;
             color: #3b5998;
-        }
-
-        /* CONTEÚDO DO SITE */
-        header, section, h2, footer, .services, .projects, .hero h1 {
-            position: relative;
-            z-index: 10;
         }
 
         /* Header */
@@ -60,6 +54,8 @@
             align-items: center;
             padding: 1.5rem 0;
             border-bottom: 1px solid #dcdfe4;
+            position: relative;
+            z-index: 10;
         }
 
         .logo {
@@ -111,6 +107,8 @@
         /* Hero */
         .hero {
             margin: 4rem 0;
+            position: relative;
+            z-index: 10;
         }
 
         .hero h1 {
@@ -132,9 +130,11 @@
 
         .section-title {
             font-size: 1.6rem;
-            margin-top: 3rem;
+            margin-top: 3.5rem;
             margin-bottom: 1.5rem;
             color: #1a2332;
+            position: relative;
+            z-index: 10;
         }
 
         /* Serviços */
@@ -143,6 +143,8 @@
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1.5rem;
             margin-bottom: 3rem;
+            position: relative;
+            z-index: 10;
         }
 
         .service-card {
@@ -175,6 +177,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            position: relative;
+            z-index: 10;
         }
 
         .project-card {
@@ -223,6 +227,8 @@
             text-align: center;
             color: #8c9ba5;
             font-size: 0.85rem;
+            position: relative;
+            z-index: 10;
         }
 
         /* Estrela FIXA no footer (sem arrastar) */
@@ -336,45 +342,58 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
 
     <script>
-        gsap.registerPlugin(Draggable);
+        window.addEventListener('load', () => {
+            gsap.registerPlugin(Draggable);
 
-        const stars = document.querySelectorAll('.star-bg');
+            const stars = document.querySelectorAll('.star-bg');
+            const hero = document.querySelector('.hero');
+            const services = document.querySelector('.services');
+            const projects = document.querySelector('.projects');
+            const footer = document.querySelector('footer');
 
-        // Mapeamento fixo de 12 posições espalhadas e longe dos cards/textos
-        const fixedPositions = [
-            { x: 880, y: 180, size: 1.8 }, // 1. Direita do Hero
-            { x: 450, y: 310, size: 1.3 }, // 2. Abaixo do Hero (centro)
-            { x: 10,  y: 380, size: 1.6 }, // 3. Esquerda do título Serviços
-            { x: 1040, y: 380, size: 1.5 },// 4. Direita do título Serviços
-            { x: 250, y: 730, size: 1.4 }, // 5. Entre cards de Serviços
-            { x: 780, y: 730, size: 1.7 }, // 6. Vão dos Serviços (direita)
-            { x: 1020, y: 720, size: 1.8 },// 7. Borda direita (meio)
-            { x: 10,  y: 770, size: 1.9 }, // 8. Borda esquerda (meio)
-            { x: 10,  y: 920, size: 1.4 }, // 9. Esquerda de "Projetos em Destaque"
-            { x: 1030, y: 920, size: 1.6 },// 10. Direita de "Projetos em Destaque"
-            { x: 50,  y: 1300, size: 1.9 },// 11. Embaixo à esquerda (perto do footer)
-            { x: 980, y: 1300, size: 1.5 } // 12. Embaixo à direita (perto do footer)
-        ];
+            // Mapeia os vazios reais da página dinamicamente baseado nos elementos
+            const safeSpots = [
+                // 1 e 2: Lado DIREITO livre do título principal (Hero)
+                { x: hero.offsetLeft + hero.offsetWidth - 120, y: hero.offsetTop + 100, size: 1.8 },
+                { x: hero.offsetLeft + hero.offsetWidth - 40,  y: hero.offsetTop + 20,  size: 1.4 },
 
-        stars.forEach((star, index) => {
-            const config = fixedPositions[index];
-            if (!config) return;
+                // 3 e 4: Vão livre ENTRE a frase do Hero e a seção Serviços
+                { x: hero.offsetLeft + 20,  y: services.offsetTop - 50, size: 1.6 },
+                { x: hero.offsetLeft + 400, y: services.offsetTop - 40, size: 1.3 },
 
-            star.style.fontSize = config.size + 'rem';
+                // 5, 6 e 7: Vão livre ENTRE Serviços e Projetos (espaço em branco limpo)
+                { x: services.offsetLeft + 10,                 y: services.offsetTop + services.offsetHeight + 35, size: 1.7 },
+                { x: services.offsetLeft + (services.offsetWidth / 2), y: services.offsetTop + services.offsetHeight + 40, size: 1.5 },
+                { x: services.offsetLeft + services.offsetWidth - 30,  y: services.offsetTop + services.offsetHeight + 30, size: 1.8 },
 
-            // Posiciona pelo GSAP
-            gsap.set(star, { x: config.x, y: config.y });
+                // 8 e 9: Vão livre ABAIXO dos Projetos
+                { x: projects.offsetLeft + 50,                  y: projects.offsetTop + projects.offsetHeight + 40, size: 1.6 },
+                { x: projects.offsetLeft + projects.offsetWidth - 80, y: projects.offsetTop + projects.offsetHeight + 45, size: 1.9 },
 
-            Draggable.create(star, {
-                type: "x,y",
-                bounds: "body",
-                edgeResistance: 0.65,
-                onPress: function() {
-                    this.target.style.zIndex = "20";
-                },
-                onDrag: function() {
-                    this.target.style.zIndex = "20";
-                }
+                // 10, 11 e 12: Vão do Footer (Lado esquerdo e direito livres)
+                { x: footer.offsetLeft + 40,                   y: footer.offsetTop + 30, size: 1.5 },
+                { x: footer.offsetLeft + footer.offsetWidth - 60, y: footer.offsetTop + 35, size: 1.8 },
+                { x: footer.offsetLeft + footer.offsetWidth / 4,  y: footer.offsetTop + 60, size: 1.3 }
+            ];
+
+            stars.forEach((star, index) => {
+                const spot = safeSpots[index];
+                if (!spot) return;
+
+                star.style.fontSize = spot.size + 'rem';
+
+                // Aplica posição inicial exata nos espaços limpos
+                gsap.set(star, { x: spot.x, y: spot.y });
+
+                // Draggable sem erro de z-index
+                Draggable.create(star, {
+                    type: "x,y",
+                    bounds: "body",
+                    edgeResistance: 0.65,
+                    onPress: function() {
+                        this.target.style.zIndex = "10000";
+                    }
+                });
             });
         });
     </script>

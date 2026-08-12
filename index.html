@@ -359,19 +359,19 @@
             const services = document.querySelector('.services');
             const projects = document.querySelector('.projects');
 
-            // Posicionamento estratégico nas bordas laterais e vãos livres
+            // posicionamento das bordas laterais e vãos livres
             const safePositions = [
-                // Esquerda extrema (margem)
+                // esquerda extrema (margem)
                 { x: -60,  y: hero.offsetTop + 20, size: 1.8 },
                 { x: -50,  y: services.offsetTop + 10, size: 1.5 },
                 { x: -70,  y: projects.offsetTop + 30, size: 1.9 },
 
-                // Direita extrema (margem)
+                // direita extrema (margem)
                 { x: hero.offsetWidth + 20,     y: hero.offsetTop - 20, size: 1.6 },
                 { x: services.offsetWidth + 20, y: services.offsetTop + 10, size: 1.8 },
                 { x: projects.offsetWidth + 30, y: projects.offsetTop + 80, size: 1.4 },
 
-                // Espaços livres entre as seções (sem encostar em cards)
+                // espaços livres entre as seções (sem encostar em cards)
                 { x: 50,                        y: services.offsetTop - 55, size: 1.4 },
                 { x: hero.offsetWidth - 180,    y: services.offsetTop - 45, size: 1.7 },
                 { x: 120,                       y: services.offsetTop + services.offsetHeight + 40, size: 1.8 },
@@ -391,11 +391,11 @@
                     type: "x,y",
                     edgeResistance: 0.5,
                     onPress: function() {
-                        // Ao clicar/arrastar, coloca na frente só temporariamente pra você ter controle
+                        // ao arrastar, coloca na frente só temporariamente pra você ter controle
                         this.target.style.zIndex = "99";
                     },
                     onRelease: function() {
-                        // Quando solta, volta a ficar atrás dos cards
+                        // quando solta, volta a ficar atrás dos cards
                         this.target.style.zIndex = "1";
                     }
                 });

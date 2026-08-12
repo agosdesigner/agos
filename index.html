@@ -323,31 +323,34 @@
         <p>© 2026 AGOS Design. Todos os direitos reservados.</p>
     </footer>
 
-   <!-- Bibliotecas GSAP -->
+ <!-- Bibliotecas GSAP -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
 
     <script>
         gsap.registerPlugin(Draggable);
 
-        // Seleciona os elementos que servirão de barreira
+        // Elementos que servem de barreira ao arrastar
         const obstacles = [
             document.querySelector('.js-obstacle'),
             document.querySelector('.projects')
         ];
 
-        // Distribui as estrelas aleatoriamente evitado a área dos projetos na largada
+        // Posiciona as estrelas GARANTINDO que fiquem acima da seção de projetos
         const stars = document.querySelectorAll('.star-bg');
         const projectsSec = document.querySelector('.projects');
 
+        // Pega o limite Y onde começam os projetos (com uma margem de segurança de 30px)
+        const projectsTop = projectsSec ? projectsSec.offsetTop - 30 : window.innerHeight / 2;
+
         stars.forEach(star => {
-            // Posiciona no máximo até 50% da altura da página para não nascer dentro dos projetos
-            const randomTop = Math.floor(Math.random() * 45) + 5; 
-            const randomLeft = Math.floor(Math.random() * 85) + 5;
+            // Sorteia uma posição em pixels estritamente acima da seção de projetos
+            const randomTopPixels = Math.floor(Math.random() * (projectsTop - 60)) + 20; 
+            const randomLeftPercent = Math.floor(Math.random() * 85) + 5;
             const randomSize = (Math.random() * 1.3 + 1.2).toFixed(1);
 
-            star.style.top = randomTop + '%';
-            star.style.left = randomLeft + '%';
+            star.style.top = randomTopPixels + 'px';
+            star.style.left = randomLeftPercent + '%';
             star.style.fontSize = randomSize + 'rem';
         });
 

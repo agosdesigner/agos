@@ -390,9 +390,9 @@
 
     <section class="projects">
         
-        <!-- PROJETO ÚNICO: JORNADA DAVIPAN (COM TODAS AS 12 IMAGENS) -->
-        <div class="project-card" data-gallery='["capa_davipan.png", "foto2.png", "foto3.png", "foto4.png", "foto5.png", "foto6.png", "foto7.png", "foto8.png", "foto9.png", "foto10.png", "foto11.png", "foto12.png"]'>
-            <img class="project-img" src="capa_davipan.png" alt="Jornada Davipan" onerror="this.src=this.src.endsWith('.png.png')?this.src:this.src+'.png'">
+        <!-- PROJETO ÚNICO COM TODAS AS 12 FOTOS -->
+        <div class="project-card" data-gallery='["capa_davipan", "foto2", "foto3", "foto4", "foto5", "foto6", "foto7", "foto8", "foto9", "foto10", "foto11", "foto12"]'>
+            <img class="project-img" id="cardCapa" src="capa_davipan.png" alt="Jornada Davipan">
             <div class="project-info">
                 <h3>Jornada Davipan - Comunicação Visual</h3>
                 <p>Comunicação Visual • Design Gráfico</p>
@@ -419,6 +419,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
 
     <script>
+        // TRATAMENTO DA CAPA DO CARD
+        const cardCapa = document.getElementById('cardCapa');
+        if (cardCapa) {
+            let attempt = 0;
+            const capaSources = ['capa_davipan.png', 'capa_davipan.jpg', 'capa_davipan.png.png', 'capa_davipan.jpg.png'];
+            
+            cardCapa.onerror = function() {
+                attempt++;
+                if (attempt < capaSources.length) {
+                    this.src = capaSources[attempt];
+                }
+            };
+        }
+
         // LÓGICA DAS ESTRELAS ARRASTÁVEIS
         window.addEventListener('load', () => {
             gsap.registerPlugin(Draggable);
@@ -459,9 +473,10 @@
             });
         });
 
-        // LÓGICA DO CARROSSEL MODAL
+        // LÓGICA DO CARROSSEL MODAL MULTI-EXTENSÃO
         let currentGallery = [];
         let currentIndex = 0;
+        let imgAttempt = 0;
 
         const modal = document.getElementById('projectModal');
         const modalImg = document.getElementById('modalImg');
@@ -480,16 +495,20 @@
         });
 
         function updateModal() {
-            const fileName = currentGallery[currentIndex];
+            const baseName = currentGallery[currentIndex];
+            imgAttempt = 0;
             
-            // Trata erros de extensões duplicadas (.png.png)
+            // Lista com todas as possibilidades de nome que o Windows/GitHub aceita
+            const extensions = ['.png', '.png.png', '.jpg', '.jpg.png'];
+
             modalImg.onerror = function() {
-                if (!this.src.endsWith('.png.png')) {
-                    this.src = fileName + '.png';
+                imgAttempt++;
+                if (imgAttempt < extensions.length) {
+                    this.src = baseName + extensions[imgAttempt];
                 }
             };
-            modalImg.src = fileName;
 
+            modalImg.src = baseName + extensions[0];
             modalCounter.innerText = `${currentIndex + 1} / ${currentGallery.length}`;
         }
 

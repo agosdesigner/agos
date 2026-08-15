@@ -390,30 +390,12 @@
 
     <section class="projects">
         
-        <!-- PROJETO 1: JORNADA DAVIPAN -->
-        <div class="project-card" data-gallery='["capa_davipan.png", "foto2.png", "foto3.png", "foto4.png", "foto5.png", "foto6.png", "foto7.png", "foto8.png", "foto9.png", "foto10.png", "fot11.png", "foto12.png"]'>
+        <!-- PROJETO ÚNICO: JORNADA DAVIPAN (COM TODAS AS 12 IMAGENS) -->
+        <div class="project-card" data-gallery='["capa_davipan.png", "foto2.png", "foto3.png", "foto4.png", "foto5.png", "foto6.png", "foto7.png", "foto8.png", "foto9.png", "foto10.png", "foto11.png", "foto12.png"]'>
             <img class="project-img" src="capa_davipan.png" alt="Jornada Davipan" onerror="this.src=this.src.endsWith('.png.png')?this.src:this.src+'.png'">
             <div class="project-info">
                 <h3>Jornada Davipan - Comunicação Visual</h3>
                 <p>Comunicação Visual • Design Gráfico</p>
-            </div>
-        </div>
-
-        <!-- PROJETO 2 -->
-        <div class="project-card" data-gallery='["foto2.png", "foto3.png"]'>
-            <img class="project-img" src="foto2.png" alt="Redes Sociais" onerror="this.src=this.src.endsWith('.png.png')?this.src:this.src+'.png'">
-            <div class="project-info">
-                <h3>Campanha para Redes Sociais</h3>
-                <p>Artes digitais • Conteúdo</p>
-            </div>
-        </div>
-
-        <!-- PROJETO 3 -->
-        <div class="project-card" data-gallery='["foto4.png", "foto5.png"]'>
-            <img class="project-img" src="foto4.png" alt="Papelaria e Ambientação" onerror="this.src=this.src.endsWith('.png.png')?this.src:this.src+'.png'">
-            <div class="project-info">
-                <h3>Papelaria & Material de Evento</h3>
-                <p>Flyer • Banner • Credenciais</p>
             </div>
         </div>
 
@@ -500,7 +482,7 @@
         function updateModal() {
             const fileName = currentGallery[currentIndex];
             
-            // Trata erros de extensões duplicadas (.png.png ou .jpg.png)
+            // Trata erros de extensões duplicadas (.png.png)
             modalImg.onerror = function() {
                 if (!this.src.endsWith('.png.png')) {
                     this.src = fileName + '.png';

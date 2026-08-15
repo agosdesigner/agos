@@ -38,8 +38,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* Deixa cliques passarem quando não estiver em cima da estrela */
-            z-index: 1; /* ATRÁS dos cards e do texto */
+            pointer-events: none;
+            z-index: 1;
         }
 
         .star-bg {
@@ -48,7 +48,7 @@
             opacity: 0.65;
             user-select: none;
             cursor: grab;
-            pointer-events: auto; /* Permite clicar e arrastar a estrela */
+            pointer-events: auto;
             transition: color 0.2s;
         }
 
@@ -57,7 +57,7 @@
             color: #3b5998;
         }
 
-        /* CONTEÚDO PRINCIPAL (Fica acima das estrelas) */
+        /* CONTEÚDO PRINCIPAL */
         header, section, .section-title, footer {
             position: relative;
             z-index: 10;
@@ -79,7 +79,6 @@
             color: #5c82b5;
         }
 
-        /* Actions */
         .nav-actions {
             display: flex;
             align-items: center;
@@ -182,7 +181,7 @@
             font-size: 0.88rem;
         }
 
-        /* Projetos */
+        /* GRID DE PROJETOS ESTILO BEHANCE */
         .projects {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -190,43 +189,121 @@
         }
 
         .project-card {
+            position: relative;
             background: #ffffff;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid #dcdfe4;
             box-shadow: 0 4px 15px rgba(0,0,0,0.02);
             transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
             z-index: 10;
+            cursor: pointer;
+            aspect-ratio: 4 / 3;
         }
 
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
             border-color: #5c82b5;
         }
 
         .project-img {
             width: 100%;
-            height: 220px;
+            height: 100%;
             object-fit: cover;
             display: block;
-            background-color: #e5e8ed;
         }
 
+        /* Degradê escuro estilo Behance */
         .project-info {
-            padding: 1.5rem;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem 1.2rem 1rem 1.2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+            color: #ffffff;
         }
 
         .project-info h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: #1a2332;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: #ffffff;
         }
 
         .project-info p {
-            color: #6b7c93;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+        }
+
+        /* MODAL DE CARROSSEL (TELA CHEIA) */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 99999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .modal-close:hover {
+            color: #5c82b5;
+        }
+
+        .modal-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.15);
+            color: #fff;
+            border: none;
+            font-size: 2rem;
+            padding: 1rem 1.2rem;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .modal-btn:hover {
+            background: rgba(255,255,255,0.4);
+        }
+
+        .modal-btn.prev { left: 30px; }
+        .modal-btn.next { right: 30px; }
+
+        .modal-counter {
+            color: #fff;
+            margin-top: 15px;
             font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
         /* Footer */
@@ -249,7 +326,7 @@
 </head>
 <body>
 
-    <!-- Container isolado para as 12 Estrelas -->
+    <!-- Container das Estrelas -->
     <div class="stars-container">
         <div class="star-bg">✦</div>
         <div class="star-bg">✦</div>
@@ -274,7 +351,7 @@
             <a href="https://instagram.com/agosdsgn" target="_blank" class="social-icon" title="Instagram">
                 <i class="fa-brands fa-instagram"></i>
             </a>
-            <a href="mailto:agos.studiocriativo@gmail.com" class="social-icon" title="E-mail">
+            <a href="mailto:arethaguinevere.dg@gmail.com" class="social-icon" title="E-mail">
                 <i class="fa-regular fa-envelope"></i>
             </a>
         </div>
@@ -313,27 +390,27 @@
 
     <section class="projects">
         
-        <!-- PROJETO 1 -->
-        <div class="project-card">
-            <img class="project-img" src="p1.jpeg.jpeg" alt="Identidade Visual">
+        <!-- PROJETO 1: JORNADA DAVIPAN -->
+        <div class="project-card" data-gallery='["foto2.png", "foto3.png", "foto4.png", "foto5.png", "foto6.png", "foto7.png", "foto8.png", "foto9.png", "foto10.png", "fot11.png", "foto12.png"]'>
+            <img class="project-img" src="capa_davipan.png" alt="Jornada Davipan">
             <div class="project-info">
-                <h3>Projeto de Identidade Visual</h3>
-                <p>Criação de Marca • Design Gráfico</p>
+                <h3>Jornada Davipan - Comunicação Visual</h3>
+                <p>Comunicação Visual • Design Gráfico</p>
             </div>
         </div>
 
-        <!-- PROJETO 2 -->
-        <div class="project-card">
-            <img class="project-img" src="p2.jpeg.jpeg" alt="Redes Sociais">
+        <!-- PROJETO 2 (Exemplo para novos projetos) -->
+        <div class="project-card" data-gallery='["foto2.png", "foto3.png"]'>
+            <img class="project-img" src="foto2.png" alt="Redes Sociais">
             <div class="project-info">
                 <h3>Campanha para Redes Sociais</h3>
-                <p>Artes digitais • Desdobramento de Conteúdo</p>
+                <p>Artes digitais • Conteúdo</p>
             </div>
         </div>
 
-        <!-- PROJETO 3 -->
-        <div class="project-card">
-            <img class="project-img" src="p3.jpeg.jpeg" alt="Papelaria e Ambientação">
+        <!-- PROJETO 3 (Exemplo para novos projetos) -->
+        <div class="project-card" data-gallery='["foto4.png", "foto5.png"]'>
+            <img class="project-img" src="foto4.png" alt="Papelaria e Ambientação">
             <div class="project-info">
                 <h3>Papelaria & Material de Evento</h3>
                 <p>Flyer • Banner • Credenciais</p>
@@ -341,6 +418,15 @@
         </div>
 
     </section>
+
+    <!-- MODAL DE CARROSSEL -->
+    <div class="modal" id="projectModal">
+        <span class="modal-close" onclick="closeGallery()">&times;</span>
+        <button class="modal-btn prev" onclick="changeSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+        <img class="modal-content" id="modalImg" src="" alt="Projeto em detalhes">
+        <button class="modal-btn next" onclick="changeSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+        <div class="modal-counter" id="modalCounter">1 / 1</div>
+    </div>
 
     <footer>
         <p><span class="footer-star">✦</span>© 2026 AGOS Design. Todos os direitos reservados.</p>
@@ -351,6 +437,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js"></script>
 
     <script>
+        // LÓGICA DAS ESTRELAS ARRASTÁVEIS
         window.addEventListener('load', () => {
             gsap.registerPlugin(Draggable);
 
@@ -359,19 +446,13 @@
             const services = document.querySelector('.services');
             const projects = document.querySelector('.projects');
 
-            // posicionamento das bordas laterais e vãos livres
             const safePositions = [
-                // esquerda extrema (margem)
                 { x: -60,  y: hero.offsetTop + 20, size: 1.8 },
                 { x: -50,  y: services.offsetTop + 10, size: 1.5 },
                 { x: -70,  y: projects.offsetTop + 30, size: 1.9 },
-
-                // direita extrema (margem)
                 { x: hero.offsetWidth + 20,     y: hero.offsetTop - 20, size: 1.6 },
                 { x: services.offsetWidth + 20, y: services.offsetTop + 10, size: 1.8 },
                 { x: projects.offsetWidth + 30, y: projects.offsetTop + 80, size: 1.4 },
-
-                // espaços livres entre as seções (sem encostar em cards)
                 { x: 50,                        y: services.offsetTop - 55, size: 1.4 },
                 { x: hero.offsetWidth - 180,    y: services.offsetTop - 45, size: 1.7 },
                 { x: 120,                       y: services.offsetTop + services.offsetHeight + 40, size: 1.8 },
@@ -390,16 +471,51 @@
                 Draggable.create(star, {
                     type: "x,y",
                     edgeResistance: 0.5,
-                    onPress: function() {
-                        // ao arrastar, coloca na frente só temporariamente pra você ter controle
-                        this.target.style.zIndex = "99";
-                    },
-                    onRelease: function() {
-                        // quando solta, volta a ficar atrás dos cards
-                        this.target.style.zIndex = "1";
-                    }
+                    onPress: function() { this.target.style.zIndex = "99"; },
+                    onRelease: function() { this.target.style.zIndex = "1"; }
                 });
             });
+        });
+
+        // LÓGICA DO CARROSSEL MODAL
+        let currentGallery = [];
+        let currentIndex = 0;
+
+        const modal = document.getElementById('projectModal');
+        const modalImg = document.getElementById('modalImg');
+        const modalCounter = document.getElementById('modalCounter');
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const galleryData = card.getAttribute('data-gallery');
+                if (galleryData) {
+                    currentGallery = JSON.parse(galleryData);
+                    currentIndex = 0;
+                    updateModal();
+                    modal.classList.add('active');
+                }
+            });
+        });
+
+        function updateModal() {
+            modalImg.src = currentGallery[currentIndex];
+            modalCounter.innerText = `${currentIndex + 1} / ${currentGallery.length}`;
+        }
+
+        function changeSlide(direction) {
+            currentIndex += direction;
+            if (currentIndex < 0) currentIndex = currentGallery.length - 1;
+            if (currentIndex >= currentGallery.length) currentIndex = 0;
+            updateModal();
+        }
+
+        function closeGallery() {
+            modal.classList.remove('active');
+        }
+
+        // Fechar com a tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeGallery();
         });
     </script>
 

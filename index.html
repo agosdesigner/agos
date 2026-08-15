@@ -181,10 +181,10 @@
             font-size: 0.88rem;
         }
 
-        /* GRID DE PROJETOS */
+        /* GRID DE PROJETOS AJUSTADO (TAMANHO LIMITADO) */
         .projects {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 360px)); /* Limita a largura dos cards */
             gap: 2rem;
         }
 
@@ -199,6 +199,7 @@
             z-index: 10;
             cursor: pointer;
             aspect-ratio: 4 / 3;
+            width: 100%;
         }
 
         .project-card:hover {
@@ -225,7 +226,7 @@
         }
 
         .project-info h3 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             margin-bottom: 0.2rem;
             color: #ffffff;
@@ -233,10 +234,10 @@
 
         .project-info p {
             color: rgba(255, 255, 255, 0.8);
-            font-size: 0.85rem;
+            font-size: 0.82rem;
         }
 
-        /* MODAL BEHANCE COM COMPACTAÇÃO DE LARGURA */
+        /* MODAL BEHANCE COMPACTO PARA VISUALIZAÇÃO */
         .modal {
             display: none;
             position: fixed;
@@ -255,7 +256,7 @@
         }
 
         .modal-container {
-            max-width: 720px; /* Reduzido de 1000px para 720px para ficar mais compacto */
+            max-width: 720px;
             margin: 0 auto;
             padding: 50px 15px 60px 15px;
             display: flex;
@@ -387,7 +388,7 @@
 
     <section class="projects">
         
-        <!-- PROJETO BEHANCE COMPACTO -->
+        <!-- CARD COM LARGURA MÁXIMA AJUSTADA -->
         <div class="project-card" data-gallery='["capa_davipan", "foto2", "foto3", "foto4", "foto5", "foto6", "foto7", "foto8", "foto9", "foto10", "foto11", "foto12"]'>
             <img class="project-img" id="capaImg" src="./capa_davipan.png.png" alt="Jornada Davipan">
             <div class="project-info">
@@ -398,7 +399,7 @@
 
     </section>
 
-    <!-- MODAL COMPACTO BEHANCE -->
+    <!-- MODAL BEHANCE -->
     <div class="modal" id="projectModal">
         <span class="modal-close" onclick="closeGallery()">&times;</span>
         <div class="modal-container">

@@ -181,10 +181,10 @@
             font-size: 0.88rem;
         }
 
-        /* GRID DE PROJETOS AJUSTADO (TAMANHO LIMITADO) */
+        /* GRID DE PROJETOS */
         .projects {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 360px)); /* Limita a largura dos cards */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 360px));
             gap: 2rem;
         }
 
@@ -237,7 +237,7 @@
             font-size: 0.82rem;
         }
 
-        /* MODAL BEHANCE COMPACTO PARA VISUALIZAÇÃO */
+        /* MODAL BEHANCE */
         .modal {
             display: none;
             position: fixed;
@@ -388,7 +388,6 @@
 
     <section class="projects">
         
-        <!-- CARD COM LARGURA MÁXIMA AJUSTADA -->
         <div class="project-card" data-gallery='["capa_davipan", "foto2", "foto3", "foto4", "foto5", "foto6", "foto7", "foto8", "foto9", "foto10", "foto11", "foto12"]'>
             <img class="project-img" id="capaImg" src="./capa_davipan.png.png" alt="Jornada Davipan">
             <div class="project-info">
@@ -445,7 +444,7 @@
                 { x: hero.offsetWidth + 20,     y: hero.offsetTop - 20, size: 1.6 },
                 { x: services.offsetWidth + 20, y: services.offsetTop + 10, size: 1.8 },
                 { x: projects.offsetWidth + 30, y: projects.offsetTop + 80, size: 1.4 },
-                { x: 50,                        y: services.offsetTop - 55, size: 1.4 },
+                { x: 20,                        y: services.offsetTop - 110, size: 1.4 }, // <--- Ajustado para subir bem mais!
                 { x: hero.offsetWidth - 180,    y: services.offsetTop - 45, size: 1.7 },
                 { x: 120,                       y: services.offsetTop + services.offsetHeight + 40, size: 1.8 },
                 { x: hero.offsetWidth - 150,    y: services.offsetTop + services.offsetHeight + 35, size: 1.5 },

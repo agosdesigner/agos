@@ -86,39 +86,29 @@
       display: block;
     }
 
-    /* Grid que força altura idêntica para o texto dos parágrafos e para a foto */
+    /* Grid normal com alinhamento no topo */
     .about-grid {
       display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 50px;
-      align-items: stretch;
-    }
-
-    .about-paragraphs {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      grid-template-columns: 1fr 340px;
+      gap: 60px;
+      align-items: start;
     }
 
     .about-paragraphs p {
       font-size: 0.95rem;
       color: #3a1c18;
-      line-height: 1.5;
-    }
-
-    .about-paragraphs p:not(:last-child) {
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     .about-paragraphs em {
       font-style: italic;
     }
 
-    /* Foto ajustada perfeitamente na altura do grid de parágrafos */
+    /* Container da foto com altura controlada exatamente igual ao bloco de texto */
     .photo-wrapper {
       position: relative;
       width: 100%;
-      height: 100%;
+      height: 380px; /* Altura exata para bater com o bloco de texto natural */
     }
 
     .photo-wrapper img {
@@ -138,7 +128,7 @@
     }
 
     .photo-wrapper .s2 {
-      top: 40%;
+      top: 35%;
       right: -20px;
       width: 45px;
       height: 45px;
@@ -208,8 +198,8 @@
 
     @media (max-width: 850px) {
       .page { padding: 40px 6%; }
-      .about-grid { grid-template-columns: 1fr; gap: 30px; }
-      .photo-wrapper { height: 380px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .photo-wrapper { height: 350px; }
       .projects-grid { grid-template-columns: 1fr; }
       .grid-divider { display: none; }
     }

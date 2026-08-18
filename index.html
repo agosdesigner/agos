@@ -24,25 +24,26 @@
       overflow-x: hidden;
     }
 
-    /* Faixa Superior (Letreiro Infinito) */
+    /* Faixa Superior (Letreiro Infinito Definitivo) */
     .top-ticker {
       background-color: #b0cbe8;
       overflow: hidden;
       white-space: nowrap;
       padding: 6px 0;
       display: flex;
+      width: 100%;
     }
 
     .ticker-track {
       display: flex;
       width: max-content;
-      animation: marquee 20s linear infinite;
+      animation: marquee 25s linear infinite;
     }
 
     .ticker-content {
       display: flex;
-      gap: 15px;
-      padding-right: 15px;
+      gap: 20px;
+      padding-right: 20px;
       font-size: 0.75rem;
       font-weight: 500;
       letter-spacing: 2px;
@@ -52,7 +53,7 @@
 
     @keyframes marquee {
       0% {
-        transform: translateX(0%);
+        transform: translateX(0);
       }
       100% {
         transform: translateX(-50%);
@@ -228,8 +229,16 @@
         <span>AGOS DSGN &#10022;</span>
         <span>AGOS DSGN &#10022;</span>
         <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
       </div>
       <div class="ticker-content">
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
         <span>AGOS DSGN &#10022;</span>
         <span>AGOS DSGN &#10022;</span>
         <span>AGOS DSGN &#10022;</span>

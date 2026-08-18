@@ -76,7 +76,7 @@
     .about-container {
       display: flex;
       gap: 70px;
-      align-items: flex-start; /* Alinha topo do texto com topo da foto */
+      align-items: flex-start;
       width: 100%;
       max-width: 1000px;
       margin: 0 auto;
@@ -109,16 +109,16 @@
       font-style: italic;
     }
 
-    /* Foto em proporção natural mantendo a qualidade original */
+    /* Foto */
     .photo-wrapper {
       position: relative;
-      width: 360px; /* Largura perfeita pra proporção da sua foto */
+      width: 360px;
       flex-shrink: 0;
     }
 
     .photo-wrapper img {
       width: 100%;
-      height: auto; /* Mantém a proporção real da imagem sem achatar */
+      height: auto;
       display: block;
       filter: grayscale(100%);
     }
@@ -155,50 +155,13 @@
     .section-title-img {
       width: 220px;
       height: auto;
-      margin-bottom: 40px;
       display: block;
       cursor: pointer;
+      transition: transform 0.2s ease;
     }
 
-    .projects-grid {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: 40px;
-      align-items: center;
-    }
-
-    .project-card {
-      border-radius: 16px;
-      overflow: hidden;
-      aspect-ratio: 16/10;
-      background-color: #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .project-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .grid-divider {
-      display: flex;
-      flex-direction: column;
-      gap: 120px;
-      align-items: center;
-    }
-
-    .grid-divider .star-shape {
-      position: static;
-      width: 60px;
-      height: 60px;
+    .section-title-img:hover {
+      transform: scale(1.05);
     }
 
     /* Responsividade */
@@ -206,8 +169,6 @@
       .page { padding: 40px 6%; }
       .about-container { flex-direction: column; gap: 40px; }
       .photo-wrapper { width: 100%; }
-      .projects-grid { grid-template-columns: 1fr; }
-      .grid-divider { display: none; }
     }
   </style>
 </head>
@@ -276,37 +237,12 @@
     </div>
   </section>
 
-  <!-- PÁGINA 2: PROJETOS -->
+  <!-- PÁGINA 2: LINK PARA PROJETOS -->
   <section class="page">
     <div class="projects-container">
       <a href="projetos.html">
         <img src="Ativo%2012.png" alt="projetos" class="section-title-img">
       </a>
-
-      <div class="projects-grid">
-        <div style="display: flex; flex-direction: column; gap: 30px;">
-          <div class="project-card">
-            <img src="capa_davipan.png.png" alt="Jornada Davipan">
-          </div>
-          <div class="project-card">
-            <img src="foto11.png.png" alt="Bololô">
-          </div>
-        </div>
-
-        <div class="grid-divider">
-          <svg class="star-shape" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
-          <svg class="star-shape" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 30px;">
-          <div class="project-card">
-            <img src="foto12.png.png" alt="Caliggio">
-          </div>
-          <div class="project-card">
-            <img src="Ativo%201.png" alt="Projeto">
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 

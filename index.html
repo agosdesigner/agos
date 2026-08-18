@@ -20,11 +20,11 @@
       background-color: #f2f3f7;
       color: #3a1c18;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      line-height: 1.5;
+      line-height: 1.6;
       overflow-x: hidden;
     }
 
-    /* Faixa Superior */
+    /* Top Ticker */
     .top-ticker {
       background-color: #b0cbe8;
       overflow: hidden;
@@ -36,7 +36,7 @@
 
     .ticker-content {
       display: inline-block;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       font-weight: 500;
       letter-spacing: 2px;
       text-transform: uppercase;
@@ -50,7 +50,7 @@
       100% { transform: translate3d(-100%, 0, 0); }
     }
 
-    /* Estrutura das Páginas / Seções */
+    /* Layout Geral */
     .page {
       min-height: 100vh;
       padding: 60px 8%;
@@ -59,14 +59,12 @@
       position: relative;
     }
 
-    /* Estrelas Modificadas (Formato do Layout) */
+    /* Estrelas com pontas afiadas */
     .star-shape {
       position: absolute;
-      width: 50px;
-      height: 50px;
       fill: #3a1c18;
       pointer-events: none;
-      z-index: 2;
+      z-index: 10;
     }
 
     /* Página 1: Sobre */
@@ -81,7 +79,7 @@
     }
 
     .brand-logo {
-      max-width: 180px;
+      width: 180px;
       height: auto;
       margin-bottom: 30px;
       display: block;
@@ -89,33 +87,52 @@
 
     .about-text p {
       margin-bottom: 18px;
-      font-size: 0.88rem;
-      color: #3d322f;
-      max-width: 440px;
+      font-size: 0.95rem;
+      color: #3a1c18;
+      max-width: 460px;
     }
 
     .about-text em {
       font-style: italic;
     }
 
+    /* Container da foto com overflow visível para as estrelas sobressaírem */
     .photo-wrapper {
       position: relative;
       justify-self: center;
+      width: 100%;
+      max-width: 380px;
     }
 
     .photo-wrapper img {
       width: 100%;
-      max-width: 380px;
       height: auto;
       display: block;
       filter: grayscale(100%);
       object-fit: cover;
     }
 
-    /* Posição Exata das Estrelas na Foto */
-    .photo-wrapper .s1 { top: 10%; left: -25px; width: 60px; height: 60px; }
-    .photo-wrapper .s2 { top: 35%; right: -20px; width: 35px; height: 35px; }
-    .photo-wrapper .s3 { bottom: -30px; left: 40%; width: 55px; height: 55px; }
+    /* Posicionamento preciso das Estrelas (conforme layout de referência) */
+    .photo-wrapper .s1 {
+      top: -25px;
+      left: -30px;
+      width: 70px;
+      height: 70px;
+    }
+
+    .photo-wrapper .s2 {
+      top: 25%;
+      right: -25px;
+      width: 50px;
+      height: 50px;
+    }
+
+    .photo-wrapper .s3 {
+      bottom: -30px;
+      left: 45%;
+      width: 65px;
+      height: 65px;
+    }
 
     /* Página 2: Projetos */
     .projects-container {
@@ -125,7 +142,7 @@
     }
 
     .section-title-img {
-      max-width: 200px;
+      width: 220px;
       height: auto;
       margin-bottom: 40px;
       display: block;
@@ -139,7 +156,7 @@
     }
 
     .project-card {
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
       aspect-ratio: 16/10;
       background-color: #ddd;
@@ -162,14 +179,14 @@
     .grid-divider {
       display: flex;
       flex-direction: column;
-      gap: 90px;
+      gap: 120px;
       align-items: center;
     }
 
     .grid-divider .star-shape {
       position: static;
-      width: 55px;
-      height: 55px;
+      width: 60px;
+      height: 60px;
     }
 
     /* Responsividade */
@@ -183,10 +200,10 @@
 </head>
 <body>
 
-  <!-- SVG da Estrela de 4 Pontas Fina (Conforme Imagem) -->
+  <!-- SVG da Estrela do Design Original -->
   <svg style="display: none;">
     <g id="sharp-star">
-      <path d="M20,0 C20,15 25,20 40,20 C25,20 20,25 20,40 C20,25 15,20 0,20 C15,20 20,15 20,0 Z"/>
+      <path d="M20,0 C20,13 27,20 40,20 C27,20 20,27 20,40 C20,27 13,20 0,20 C13,20 20,13 20,0 Z"/>
     </g>
   </svg>
 
@@ -201,8 +218,8 @@
   <section class="page">
     <div class="about-container">
       <div class="about-text">
-        <!-- Logo em Imagem PNG (Ativo 7.png ou Ativo 3.png) -->
-        <img src="Ativo 7.png" alt="agos dsgn" class="brand-logo">
+        <!-- Uso de %20 para cobrir o espaço no nome do arquivo no GitHub -->
+        <img src="Ativo%207.png" alt="agos dsgn" class="brand-logo">
         
         <p>Desde muito nova, sempre fui curiosa e tagarela. Amava questionar tudo que podia!</p>
         <p>Sempre me interessei por processos, maneiras de resolver problemas, entender o porquê das coisas, encontrar significado nos detalhes e descobrir o que faz uma ideia funcionar. <em>Criar, para mim, sempre foi consequência dessa curiosidade.</em></p>
@@ -214,7 +231,7 @@
         <svg class="star-shape s1" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
         <svg class="star-shape s2" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
         <svg class="star-shape s3" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
-        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=800" alt="Foto de perfil">
+        <img src="foto10.png.png" alt="Foto de perfil">
       </div>
     </div>
   </section>
@@ -222,17 +239,16 @@
   <!-- PÁGINA 2: PROJETOS -->
   <section class="page">
     <div class="projects-container">
-      <!-- Título em Imagem PNG (Ativo 12.png) -->
-      <img src="Ativo 12.png" alt="projetos" class="section-title-img">
+      <img src="Ativo%2012.png" alt="projetos" class="section-title-img">
 
       <div class="projects-grid">
         <!-- Coluna Esquerda -->
         <div style="display: flex; flex-direction: column; gap: 30px;">
           <div class="project-card">
-            <img src="https://via.placeholder.com/600x400/fff3e0/3a1c18?text=JORNADA+Davipan" alt="Jornada Davipan">
+            <img src="capa_davipan.png.png" alt="Jornada Davipan">
           </div>
           <div class="project-card">
-            <img src="https://via.placeholder.com/600x400/e0e0e0/3a1c18?text=Sorvete+Bolol%C3%B3" alt="Bololô">
+            <img src="foto11.png.png" alt="Bololô">
           </div>
         </div>
 
@@ -245,10 +261,10 @@
         <!-- Coluna Direita -->
         <div style="display: flex; flex-direction: column; gap: 30px;">
           <div class="project-card">
-            <img src="https://via.placeholder.com/600x400/3a231c/fff?text=caliggio+studio+care" alt="Caliggio">
+            <img src="foto12.png.png" alt="Caliggio">
           </div>
           <div class="project-card">
-            <img src="https://via.placeholder.com/600x400/cc1111/fff?text=Red+Graphic" alt="Projeto">
+            <img src="Ativo%201.png" alt="Projeto">
           </div>
         </div>
       </div>

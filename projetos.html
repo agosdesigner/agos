@@ -7,7 +7,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -24,7 +24,7 @@
       overflow-x: hidden;
     }
 
-    /* Faixa Superior Infinita */
+    /* Ticker Superior */
     .top-ticker {
       background-color: #b0cbe8;
       overflow: hidden;
@@ -58,67 +58,91 @@
 
     /* Container Principal */
     .container {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 60px 8%;
+      padding: 30px 20px 60px 20px;
     }
 
-    /* Botão Voltar */
     .back-link {
       display: inline-block;
-      margin-bottom: 30px;
       color: #3a1c18;
       text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: transform 0.2s ease;
+      font-size: 0.85rem;
+      margin-bottom: 25px;
+      transition: opacity 0.2s;
     }
 
     .back-link:hover {
-      transform: translateX(-4px);
+      opacity: 0.7;
     }
 
-    .section-title-img {
-      width: 220px;
-      height: auto;
-      margin-bottom: 40px;
-      display: block;
+    .page-title {
+      font-family: 'Plus Jakarta Sans', cursive, sans-serif; /* ajuste para sua fonte se usar imagem */
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #3a1c18;
     }
 
-    /* Grid de Projetos */
+    /* Grid dos Projetos */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 40px;
+      gap: 25px;
     }
 
+    /* Card Genérico */
     .project-card {
+      background-color: #ffffff;
       border-radius: 16px;
       overflow: hidden;
-      aspect-ratio: 16/10;
-      background-color: #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
     }
 
-    .project-card:hover {
-      transform: translateY(-4px);
+    /* Card Estilo Exposição Behance (Scroll Vertical) */
+    .behance-scroll-card {
+      height: 380px; /* Altura do bloco na tela */
+      overflow-y: auto;
+      scroll-behavior: smooth;
+      border-radius: 16px;
+      background-color: #f7f5ed;
     }
 
-    .project-card img {
+    /* Personalização da barra de rolagem (opcional, deixa elegante) */
+    .behance-scroll-card::-webkit-scrollbar {
+      width: 6px;
+    }
+    .behance-scroll-card::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.03);
+    }
+    .behance-scroll-card::-webkit-scrollbar-thumb {
+      background: rgba(58, 28, 24, 0.2);
+      border-radius: 10px;
+    }
+    .behance-scroll-card::-webkit-scrollbar-thumb:hover {
+      background: rgba(58, 28, 24, 0.4);
+    }
+
+    .behance-scroll-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Demais Cards Estáticos */
+    .project-card img.static-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
-    @media (max-width: 850px) {
+    /* Responsivo */
+    @media (max-width: 768px) {
       .projects-grid {
         grid-template-columns: 1fr;
       }
-      .container {
-        padding: 40px 6%;
+      .behance-scroll-card {
+        height: 320px;
       }
     }
   </style>
@@ -135,8 +159,12 @@
         <span>AGOS DSGN &#10022;</span>
         <span>AGOS DSGN &#10022;</span>
         <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
       </div>
       <div class="ticker-content">
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
         <span>AGOS DSGN &#10022;</span>
         <span>AGOS DSGN &#10022;</span>
         <span>AGOS DSGN &#10022;</span>
@@ -147,26 +175,49 @@
     </div>
   </div>
 
-  <main class="container">
-    <a href="index.html" class="back-link">&#8592; voltar para o início</a>
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; voltar para o início</a>
 
-    <img src="Ativo%2012.png" alt="projetos" class="section-title-img">
+    <!-- Título da página -->
+    <div style="margin-bottom: 20px;">
+      <img src="Ativo%2012.png" alt="projetos" style="width: 200px; height: auto;">
+    </div>
 
     <div class="projects-grid">
-      <div class="project-card">
-        <img src="capa_davipan.png.png" alt="Jornada Davipan">
+      
+      <!-- PRIMEIRO BLOCO: EXPOSIÇÃO BEHANCE COM SCROLL -->
+      <div class="behance-scroll-card">
+        <img src="capa_davipan.png.png" alt="Capa Jornada Davipan">
+        <img src="foto2.png.png" alt="Davipan - Foto 2">
+        <img src="foto3.png.png" alt="Davipan - Foto 3">
+        <img src="foto4.png.png" alt="Davipan - Foto 4">
+        <img src="foto5.png.png" alt="Davipan - Foto 5">
+        <img src="foto6.png.png" alt="Davipan - Foto 6">
+        <img src="foto7.png.png" alt="Davipan - Foto 7">
+        <img src="foto8.png.png" alt="Davipan - Foto 8">
+        <img src="foto9.png.png" alt="Davipan - Foto 9">
+        <img src="foto10.png.png" alt="Davipan - Foto 10">
+        <img src="foto11.png.png" alt="Davipan - Foto 11">
+        <img src="foto12.png.png" alt="Davipan - Foto 12">
       </div>
+
+      <!-- SEGUNDO BLOCO -->
       <div class="project-card">
-        <img src="foto11.png.png" alt="Bololô">
+        <img src="foto2.png.png" class="static-img" alt="Projeto 2">
       </div>
+
+      <!-- TERCEIRO BLOCO -->
       <div class="project-card">
-        <img src="foto12.png.png" alt="Caliggio">
+        <img src="foto3.png.png" class="static-img" alt="Projeto 3">
       </div>
+
+      <!-- QUARTO BLOCO -->
       <div class="project-card">
-        <img src="Ativo%201.png" alt="Projeto">
+        <img src="foto4.png.png" class="static-img" alt="Projeto 4">
       </div>
+
     </div>
-  </main>
+  </div>
 
 </body>
 </html>

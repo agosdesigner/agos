@@ -82,7 +82,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 60px;
-      align-items: center;
+      align-items: stretch; /* Estica ambos os lados para ficarem com a mesma altura */
       width: 100%;
       max-width: 1100px;
       margin: 0 auto;
@@ -106,20 +106,19 @@
       font-style: italic;
     }
 
-    /* Container da foto */
+    /* Container da foto alinhado com a altura do texto */
     .photo-wrapper {
       position: relative;
-      justify-self: center;
       width: 100%;
-      max-width: 380px;
+      height: 100%;
     }
 
     .photo-wrapper img {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
       filter: grayscale(100%);
-      object-fit: cover;
+      object-fit: cover; /* Mantém a foto perfeita sem distorcer */
     }
 
     /* Posicionamento das Estrelas na Foto */
@@ -203,6 +202,7 @@
     @media (max-width: 850px) {
       .page { padding: 40px 6%; }
       .about-container { grid-template-columns: 1fr; gap: 40px; }
+      .photo-wrapper { height: 400px; } /* Altura fixa confortável no celular */
       .projects-grid { grid-template-columns: 1fr; }
       .grid-divider { display: none; }
     }
@@ -255,7 +255,7 @@
   <section class="page">
     <div class="about-container">
       <div class="about-text">
-        <img src="Ativo%207.png" alt="agos dsgn" class="brand-logo">
+        <img src="Ativo%206_2.png" alt="agos dsgn" class="brand-logo">
         
         <p>Desde muito nova, sempre fui curiosa e tagarela. Amava questionar tudo que podia!</p>
         <p>Sempre me interessei por processos, maneiras de resolver problemas, entender o porquê das coisas, encontrar significado nos detalhes e descobrir o que faz uma ideia funcionar. <em>Criar, para mim, sempre foi consequência dessa curiosidade.</em></p>

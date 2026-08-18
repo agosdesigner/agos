@@ -75,10 +75,10 @@
     /* Página 1: Sobre */
     .about-container {
       display: flex;
-      gap: 60px;
-      align-items: stretch;
+      gap: 70px;
+      align-items: flex-start; /* Alinha topo do texto com topo da foto */
       width: 100%;
-      max-width: 1050px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
@@ -86,45 +86,44 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: space-between; /* Distribui logo e textos para baterem do topo até a base da foto */
     }
 
     .brand-logo {
-      width: 170px;
+      width: 160px;
       height: auto;
+      margin-bottom: 35px;
       display: block;
     }
 
     .about-text p {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       color: #3a1c18;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .about-text p:not(:last-child) {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     .about-text em {
       font-style: italic;
     }
 
-    /* Container da foto original inteira sem cortes */
+    /* Foto em proporção natural mantendo a qualidade original */
     .photo-wrapper {
       position: relative;
-      width: 380px;
+      width: 360px; /* Largura perfeita pra proporção da sua foto */
       flex-shrink: 0;
     }
 
     .photo-wrapper img {
       width: 100%;
-      height: 100%;
+      height: auto; /* Mantém a proporção real da imagem sem achatar */
       display: block;
       filter: grayscale(100%);
-      object-fit: fill; /* Ocupa exatamente a área do bloco sem cortes */
     }
 
-    /* Posicionamento das Estrelas (fora do overflow) */
+    /* Posicionamento das Estrelas */
     .photo-wrapper .s1 {
       top: -20px;
       left: -25px;
@@ -133,7 +132,7 @@
     }
 
     .photo-wrapper .s2 {
-      top: 40%;
+      top: 35%;
       right: -25px;
       width: 45px;
       height: 45px;
@@ -141,7 +140,7 @@
 
     .photo-wrapper .s3 {
       bottom: -25px;
-      left: 45%;
+      left: 40%;
       width: 55px;
       height: 55px;
     }
@@ -205,7 +204,7 @@
     @media (max-width: 850px) {
       .page { padding: 40px 6%; }
       .about-container { flex-direction: column; gap: 40px; }
-      .photo-wrapper { width: 100%; height: 400px; }
+      .photo-wrapper { width: 100%; }
       .projects-grid { grid-template-columns: 1fr; }
       .grid-divider { display: none; }
     }

@@ -24,7 +24,7 @@
       overflow-x: hidden;
     }
 
-    /* Faixa Superior (Letreiro Infinito Definitivo) */
+    /* Faixa Superior */
     .top-ticker {
       background-color: #b0cbe8;
       overflow: hidden;
@@ -52,12 +52,8 @@
     }
 
     @keyframes marquee {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%);
-      }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     /* Layout Geral */
@@ -69,7 +65,6 @@
       position: relative;
     }
 
-    /* Estrelas com pontas afiadas */
     .star-shape {
       position: absolute;
       fill: #3a1c18;
@@ -78,43 +73,52 @@
     }
 
     /* Página 1: Sobre */
-    .about-container {
-      display: flex;
-      gap: 60px;
-      align-items: stretch; /* Garante que os dois lados tenham exatamente a mesma altura */
+    .about-section {
       width: 100%;
-      max-width: 1100px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
-    .about-text {
-      flex: 1;
-    }
-
     .brand-logo {
-      width: 180px;
+      width: 170px;
       height: auto;
-      margin-bottom: 30px;
+      margin-bottom: 35px;
       display: block;
     }
 
-    .about-text p {
-      margin-bottom: 18px;
-      font-size: 0.95rem;
-      color: #3a1c18;
-      max-width: 460px;
+    /* Grid que força altura idêntica para o texto dos parágrafos e para a foto */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 50px;
+      align-items: stretch;
     }
 
-    .about-text em {
+    .about-paragraphs {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .about-paragraphs p {
+      font-size: 0.95rem;
+      color: #3a1c18;
+      line-height: 1.5;
+    }
+
+    .about-paragraphs p:not(:last-child) {
+      margin-bottom: 16px;
+    }
+
+    .about-paragraphs em {
       font-style: italic;
     }
 
-    /* Container da foto travado na altura do texto */
+    /* Foto ajustada perfeitamente na altura do grid de parágrafos */
     .photo-wrapper {
       position: relative;
-      flex: 1;
-      max-width: 420px;
-      display: flex;
+      width: 100%;
+      height: 100%;
     }
 
     .photo-wrapper img {
@@ -122,29 +126,29 @@
       height: 100%;
       display: block;
       filter: grayscale(100%);
-      object-fit: cover; /* Recorta a imagem proporcionalmente pra caber na altura exata */
+      object-fit: cover;
     }
 
-    /* Posicionamento das Estrelas na Foto */
+    /* Estrelas */
     .photo-wrapper .s1 {
-      top: -25px;
-      left: -30px;
-      width: 70px;
-      height: 70px;
+      top: -20px;
+      left: -25px;
+      width: 55px;
+      height: 55px;
     }
 
     .photo-wrapper .s2 {
-      top: 30%;
-      right: -25px;
-      width: 50px;
-      height: 50px;
+      top: 40%;
+      right: -20px;
+      width: 45px;
+      height: 45px;
     }
 
     .photo-wrapper .s3 {
-      bottom: -30px;
-      left: 45%;
-      width: 65px;
-      height: 65px;
+      bottom: -25px;
+      left: 40%;
+      width: 55px;
+      height: 55px;
     }
 
     /* Página 2: Projetos */
@@ -202,11 +206,10 @@
       height: 60px;
     }
 
-    /* Responsividade */
     @media (max-width: 850px) {
       .page { padding: 40px 6%; }
-      .about-container { flex-direction: column; gap: 40px; }
-      .photo-wrapper { max-width: 100%; height: 400px; }
+      .about-grid { grid-template-columns: 1fr; gap: 30px; }
+      .photo-wrapper { height: 380px; }
       .projects-grid { grid-template-columns: 1fr; }
       .grid-divider { display: none; }
     }
@@ -221,7 +224,7 @@
     </g>
   </svg>
 
-  <!-- Faixa Superior Infinita -->
+  <!-- Faixa Superior -->
   <div class="top-ticker">
     <div class="ticker-track">
       <div class="ticker-content">
@@ -257,21 +260,23 @@
 
   <!-- PÁGINA 1: SOBRE -->
   <section class="page">
-    <div class="about-container">
-      <div class="about-text">
-        <img src="Ativo%206.png" alt="agos dsgn" class="brand-logo">
-        
-        <p>Desde muito nova, sempre fui curiosa e tagarela. Amava questionar tudo que podia!</p>
-        <p>Sempre me interessei por processos, maneiras de resolver problemas, entender o porquê das coisas, encontrar significado nos detalhes e descobrir o que faz uma ideia funcionar. <em>Criar, para mim, sempre foi consequência dessa curiosidade.</em></p>
-        <p>Talvez por isso o design tenha feito tanto sentido. Encontrei uma profissão onde observar, questionar e entender fazem parte do trabalho.</p>
-        <p>Hoje, uso toda essa bagagem para ajudar marcas a descobrirem seu potencial e transformá-lo em algo que faça sentido, tenha personalidade e seja verdadeiramente seu.</p>
-      </div>
+    <div class="about-section">
+      <img src="Ativo%206.png" alt="agos dsgn" class="brand-logo">
+      
+      <div class="about-grid">
+        <div class="about-paragraphs">
+          <p>Desde muito nova, sempre fui curiosa e tagarela. Amava questionar tudo que podia!</p>
+          <p>Sempre me interessei por processos, maneiras de resolver problemas, entender o porquê das coisas, encontrar significado nos detalhes e descobrir o que faz uma ideia funcionar. <em>Criar, para mim, sempre foi consequência dessa curiosidade.</em></p>
+          <p>Talvez por isso o design tenha feito tanto sentido. Encontrei uma profissão onde observar, questionar e entender fazem parte do trabalho.</p>
+          <p>Hoje, uso toda essa bagagem para ajudar marcas a descobrirem seu potencial e transformá-lo em algo que faça sentido, tenha personalidade e seja verdadeiramente seu.</p>
+        </div>
 
-      <div class="photo-wrapper">
-        <svg class="star-shape s1" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
-        <svg class="star-shape s2" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
-        <svg class="star-shape s3" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
-        <img src="ativo.JPEG" alt="Foto de perfil">
+        <div class="photo-wrapper">
+          <svg class="star-shape s1" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
+          <svg class="star-shape s2" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
+          <svg class="star-shape s3" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
+          <img src="ativo.JPEG" alt="Foto de perfil">
+        </div>
       </div>
     </div>
   </section>
@@ -282,7 +287,6 @@
       <img src="Ativo%2012.png" alt="projetos" class="section-title-img">
 
       <div class="projects-grid">
-        <!-- Coluna Esquerda -->
         <div style="display: flex; flex-direction: column; gap: 30px;">
           <div class="project-card">
             <img src="capa_davipan.png.png" alt="Jornada Davipan">
@@ -292,13 +296,11 @@
           </div>
         </div>
 
-        <!-- Divisor Central com Estrelas -->
         <div class="grid-divider">
           <svg class="star-shape" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
           <svg class="star-shape" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
         </div>
 
-        <!-- Coluna Direita -->
         <div style="display: flex; flex-direction: column; gap: 30px;">
           <div class="project-card">
             <img src="foto12.png.png" alt="Caliggio">

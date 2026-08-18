@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projetos — agos dsgn</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f2f3f7;
+      color: #3a1c18;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Faixa Superior Infinita */
+    .top-ticker {
+      background-color: #b0cbe8;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 6px 0;
+      display: flex;
+      width: 100%;
+    }
+
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 25s linear infinite;
+    }
+
+    .ticker-content {
+      display: flex;
+      gap: 20px;
+      padding-right: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #3a1c18;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Container Principal */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 8%;
+    }
+
+    /* Botão Voltar */
+    .back-link {
+      display: inline-block;
+      margin-bottom: 30px;
+      color: #3a1c18;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: transform 0.2s ease;
+    }
+
+    .back-link:hover {
+      transform: translateX(-4px);
+    }
+
+    .section-title-img {
+      width: 220px;
+      height: auto;
+      margin-bottom: 40px;
+      display: block;
+    }
+
+    /* Grid de Projetos */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+
+    .project-card {
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      background-color: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 850px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      .container {
+        padding: 40px 6%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Faixa Superior -->
+  <div class="top-ticker">
+    <div class="ticker-track">
+      <div class="ticker-content">
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+      </div>
+      <div class="ticker-content">
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+        <span>AGOS DSGN &#10022;</span>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <a href="index.html" class="back-link">&#8592; voltar para o início</a>
+
+    <img src="Ativo%2012.png" alt="projetos" class="section-title-img">
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <img src="capa_davipan.png.png" alt="Jornada Davipan">
+      </div>
+      <div class="project-card">
+        <img src="foto11.png.png" alt="Bololô">
+      </div>
+      <div class="project-card">
+        <img src="foto12.png.png" alt="Caliggio">
+      </div>
+      <div class="project-card">
+        <img src="Ativo%201.png" alt="Projeto">
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

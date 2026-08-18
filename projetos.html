@@ -103,32 +103,33 @@
       display: block;
     }
 
-    /* Modal / Pop-up do Projeto (Estilo Behance) */
+    /* Modal / Pop-up do Projeto (Scroll arrumado) */
     .modal-overlay {
       display: none;
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       background-color: rgba(0, 0, 0, 0.85);
       z-index: 1000;
-      overflow-y: auto;
-      padding: 40px 20px;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
 
     .modal-overlay.active {
       display: flex;
-      justify-content: center;
     }
 
     .modal-content {
       position: relative;
       max-width: 850px;
       width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
       background-color: #ffffff;
       border-radius: 12px;
-      overflow: hidden;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
@@ -136,6 +137,19 @@
       width: 100%;
       height: auto;
       display: block;
+    }
+
+    /* Personalização da barra de rolagem */
+    .modal-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .modal-content::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 0 12px 12px 0;
+    }
+    .modal-content::-webkit-scrollbar-thumb {
+      background: #3a1c18;
+      border-radius: 10px;
     }
 
     /* Botão de Fechar */
@@ -162,6 +176,7 @@
     @media (max-width: 768px) {
       .projects-grid { grid-template-columns: 1fr; }
       .close-btn { top: 15px; right: 15px; width: 38px; height: 38px; }
+      .modal-content { max-height: 85vh; }
     }
   </style>
 </head>
@@ -227,12 +242,12 @@
   <script>
     function openModal() {
       document.getElementById('projectModal').classList.add('active');
-      document.body.style.overflow = 'hidden'; // Trava a rolagem do fundo
+      document.body.style.overflow = 'hidden';
     }
 
     function closeModal() {
       document.getElementById('projectModal').classList.remove('active');
-      document.body.style.overflow = 'auto'; // Destrava a rolagem
+      document.body.style.overflow = 'auto';
     }
 
     function closeModalOnOuterClick(event) {

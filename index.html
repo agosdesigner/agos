@@ -46,7 +46,7 @@
       -webkit-user-select: none;
       cursor: grab;
       pointer-events: auto;
-      touch-action: none;
+      touch-action: none; /* Permite arrastar no celular sem rolar a tela */
       transition: color 0.2s ease, transform 0.1s ease;
       z-index: 2;
     }
@@ -415,19 +415,24 @@
       let isDragging = false;
       let startX, startY, initialLeft, initialTop;
 
+      function getCoords(e) {
+        if (e.touches && e.touches.length > 0) {
+          return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+        }
+        return { x: e.clientX, y: e.clientY };
+      }
+
       function onStart(e) {
         isDragging = true;
         element.classList.add('dragging');
 
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-        startX = clientX;
-        startY = clientY;
+        const coords = getCoords(e);
+        startX = coords.x;
+        startY = coords.y;
         initialLeft = parseFloat(element.style.left) || element.offsetLeft;
         initialTop = parseFloat(element.style.top) || element.offsetTop;
 
-        window.addEventListener('mousemove', onMove, { passive: false });
+        window.addEventListener('mousemove', onMove);
         window.addEventListener('mouseup', onEnd);
         window.addEventListener('touchmove', onMove, { passive: false });
         window.addEventListener('touchend', onEnd);
@@ -435,13 +440,12 @@
 
       function onMove(e) {
         if (!isDragging) return;
+        
         if (e.cancelable) e.preventDefault();
 
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-
-        const deltaX = clientX - startX;
-        const deltaY = clientY - startY;
+        const coords = getCoords(e);
+        const deltaX = coords.x - startX;
+        const deltaY = coords.y - startY;
 
         element.style.left = (initialLeft + deltaX) + 'px';
         element.style.top = (initialTop + deltaY) + 'px';

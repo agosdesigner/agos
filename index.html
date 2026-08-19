@@ -26,15 +26,15 @@
       min-height: 100vh;
     }
 
-    /* Estrelas Flutuantes no Fundo (#98cdeb) */
+    /* Contêiner de Estrelas Interativas no Fundo (#98cdeb) */
     #stars-container {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      pointer-events: none;
-      z-index: 0;
+      pointer-events: none; /* Deixa o fundo clicável, as estrelas em si ganham pointer-events auto */
+      z-index: 1;
       overflow: hidden;
     }
 
@@ -42,17 +42,20 @@
       position: absolute;
       color: #98cdeb; /* Baby Blue */
       user-select: none;
-      animation: floatStar 4s ease-in-out infinite alternate, fadeStar 3s ease-in-out infinite alternate;
+      cursor: grab;
+      pointer-events: auto; /* Permite clicar e arrastar */
+      touch-action: none;   /* Impede scroll da tela ao arrastar no celular */
+      transition: transform 0.1s ease, color 0.2s ease;
     }
 
-    @keyframes floatStar {
-      0% { transform: translateY(0px) rotate(0deg); }
-      100% { transform: translateY(-18px) rotate(25deg); }
+    .star:hover {
+      color: #572c19; /* Fica marrom sutil ao passar o mouse */
     }
 
-    @keyframes fadeStar {
-      0% { opacity: 0.3; transform: scale(0.8); }
-      100% { opacity: 1; transform: scale(1.3); }
+    .star.dragging {
+      cursor: grabbing;
+      transform: scale(1.4);
+      z-index: 1000; /* Fica acima das outras estrelas durante o arrasto */
     }
 
     /* Faixa Superior Infinita (#98cdeb) */
@@ -106,11 +109,9 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      /* Offset para a logo alinhar com o topo exato da foto na direita */
       padding-top: 52px; 
     }
 
-    /* Logo limpa sem contorno */
     .logo-img {
       width: 180px;
       height: auto;
@@ -118,7 +119,6 @@
       display: block;
     }
 
-    /* Todo o texto da bio em itálico */
     .bio-text p {
       font-size: 0.95rem;
       color: #572c19;
@@ -127,7 +127,6 @@
       font-style: italic;
     }
 
-    /* Link da Imagem Projetos com espaçamento */
     .projects-link-img {
       display: inline-block;
       margin-top: 45px;
@@ -159,7 +158,6 @@
       max-width: 380px;
     }
 
-    /* Redes Sociais no topo exato da largura da foto */
     .social-bar {
       display: flex;
       justify-content: flex-end;
@@ -188,7 +186,6 @@
       fill: currentColor;
     }
 
-    /* Botão Solicitar Orçamento com Ícone do WhatsApp */
     .btn-budget {
       display: flex;
       align-items: center;
@@ -214,7 +211,6 @@
       box-shadow: 0 10px 30px rgba(22, 10, 5, 0.08);
     }
 
-    /* Estrelas Decorativas em Volta da Foto */
     .photo-star {
       position: absolute;
       color: #572c19;
@@ -269,7 +265,7 @@
 </head>
 <body>
 
-  <!-- ESTRELAS FLUTUANTES NO FUNDO (#98cdeb) -->
+  <!-- ESTRELAS INTERATIVAS E ARRASTÁVEIS NO FUNDO (#98cdeb) -->
   <div id="stars-container"></div>
 
   <!-- FAIXA SUPERIOR INFINITA (#98cdeb) -->
@@ -364,20 +360,76 @@
   </main>
 
   <script>
-    // Gerador de Estrelas Flutuantes no Fundo (#98cdeb)
     const container = document.getElementById('stars-container');
     const starIcons = ['✦', '✧', '✶', '✵'];
+    const totalStars = 32;
 
-    for (let i = 0; i < 30; i++) {
+    // Gerador de Estrelas em posições aleatórias
+    for (let i = 0; i < totalStars; i++) {
       const star = document.createElement('span');
       star.className = 'star';
       star.innerHTML = starIcons[Math.floor(Math.random() * starIcons.length)];
-      star.style.left = Math.random() * 100 + 'vw';
-      star.style.top = Math.random() * 100 + 'vh';
-      star.style.fontSize = (Math.random() * 14 + 12) + 'px';
-      star.style.animationDelay = (Math.random() * 4) + 's';
-      star.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      
+      // Posição inicial aleatória em pixels
+      const initialX = Math.random() * (window.innerWidth - 30);
+      const initialY = Math.random() * (window.innerHeight - 30);
+      
+      star.style.left = initialX + 'px';
+      star.style.top = initialY + 'px';
+      star.style.fontSize = (Math.random() * 16 + 14) + 'px';
+
+      // Ativa a funcionalidade de arrastar
+      makeDraggable(star);
       container.appendChild(star);
+    }
+
+    // Função de Drag & Drop para Mouse e Touch (Celular)
+    function makeDraggable(element) {
+      let isDragging = false;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      function onStart(e) {
+        isDragging = true;
+        element.classList.add('dragging');
+
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+        const rect = element.getBoundingClientRect();
+        offsetX = clientX - rect.left;
+        offsetY = clientY - rect.top;
+      }
+
+      function onMove(e) {
+        if (!isDragging) return;
+
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+        let newX = clientX - offsetX;
+        let newY = clientY - offsetY;
+
+        element.style.left = newX + 'px';
+        element.style.top = newY + 'px';
+      }
+
+      function onEnd() {
+        if (isDragging) {
+          isDragging = false;
+          element.classList.remove('dragging');
+        }
+      }
+
+      // Eventos de Mouse
+      element.addEventListener('mousedown', onStart);
+      window.addEventListener('mousemove', onMove);
+      window.addEventListener('mouseup', onEnd);
+
+      // Eventos de Toque (Celulares / Tablets)
+      element.addEventListener('touchstart', onStart, { passive: false });
+      window.addEventListener('touchmove', onMove, { passive: false });
+      window.addEventListener('touchend', onEnd);
     }
   </script>
 

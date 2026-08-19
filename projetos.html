@@ -17,20 +17,52 @@
     }
 
     body {
-      background-color: #f2f3f7;
-      color: #3a1c18;
+      background-color: #ededed; /* Ice */
+      color: #572c19; /* Brown Sugar */
       font-family: 'Plus Jakarta Sans', sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* Faixa Superior Infinita */
+    /* Container das Estrelas Flutuantes (#98cdeb) */
+    #stars-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      color: #98cdeb; /* Baby Blue */
+      user-select: none;
+      animation: floatStar 4s ease-in-out infinite alternate, fadeStar 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatStar {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-18px) rotate(25deg); }
+    }
+
+    @keyframes fadeStar {
+      0% { opacity: 0.3; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* Faixa Superior Infinita (#98cdeb) */
     .top-ticker {
-      background-color: #b0cbe8;
+      background-color: #98cdeb; /* Baby Blue */
       overflow: hidden;
       white-space: nowrap;
       padding: 6px 0;
       width: 100%;
+      position: relative;
+      z-index: 2;
     }
 
     .ticker-track {
@@ -47,7 +79,7 @@
       font-weight: 500;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #3a1c18;
+      color: #160a05; /* Dark Brown */
     }
 
     @keyframes marquee {
@@ -60,12 +92,14 @@
       max-width: 1000px;
       margin: 0 auto;
       padding: 30px 20px 60px 20px;
+      position: relative;
+      z-index: 2;
     }
 
-    /* Link "voltar para o início" em fonte caligráfica / Blackadder */
+    /* Link "voltar para o início" direcionando para index.html */
     .back-link {
       display: inline-block;
-      color: #3a1c18;
+      color: #572c19; /* Brown Sugar */
       text-decoration: none;
       font-family: 'Blackadder ITC', 'Alex Brush', cursive;
       font-size: 1.6rem;
@@ -88,20 +122,28 @@
       background-color: #ffffff;
       border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 15px rgba(22, 10, 5, 0.05);
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .project-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    }
-
+    /* Capa em Preto e Branco */
     .project-card img {
       width: 100%;
       height: auto;
       display: block;
+      filter: grayscale(100%);
+      transition: filter 0.4s ease, transform 0.4s ease;
+    }
+
+    /* Efeito ao passar o mouse */
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(22, 10, 5, 0.12);
+    }
+
+    .project-card:hover img {
+      filter: grayscale(0%);
     }
 
     /* Modal / Pop-up do Projeto */
@@ -112,7 +154,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
+      background-color: rgba(22, 10, 5, 0.85); /* Dark Brown com opacidade */
       z-index: 1000;
       align-items: center;
       justify-content: center;
@@ -134,10 +176,12 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
+    /* Imagens internas do modal coloridas normalmente */
     .modal-content img {
       width: 100%;
       height: auto;
       display: block;
+      filter: none;
     }
 
     .modal-content::-webkit-scrollbar {
@@ -148,7 +192,7 @@
       border-radius: 0 12px 12px 0;
     }
     .modal-content::-webkit-scrollbar-thumb {
-      background: #3a1c18;
+      background: #572c19;
       border-radius: 10px;
     }
 
@@ -158,7 +202,7 @@
       top: 20px;
       right: 30px;
       background: #ffffff;
-      color: #3a1c18;
+      color: #572c19;
       border: none;
       font-size: 1.5rem;
       width: 45px;
@@ -183,7 +227,10 @@
 </head>
 <body>
 
-  <!-- Faixa Superior Infinita -->
+  <!-- ESTRELAS FLUTUANTES NO FUNDO (#98cdeb) -->
+  <div id="stars-container"></div>
+
+  <!-- Faixa Superior Infinita (#98cdeb) -->
   <div class="top-ticker">
     <div class="ticker-track">
       <div class="ticker-content">
@@ -218,6 +265,7 @@
   </div>
 
   <div class="container">
+    <!-- LINK DIRECIONANDO DIRETAMENTE PARA O INDEX.HTML -->
     <a href="index.html" class="back-link">&larr; voltar para o início</a>
 
     <!-- Título da página -->
@@ -225,7 +273,7 @@
       <img src="Ativo%2012.png" alt="projetos" style="width: 200px; height: auto;">
     </div>
 
-    <!-- CARD APENAS DA CAPA -->
+    <!-- CARD APENAS DA CAPA (EM PRETO E BRANCO) -->
     <div class="projects-grid">
       <div class="project-card" onclick="openModal()">
         <img src="capa_davipan.png.png" alt="Capa Jornada Davipan">
@@ -253,6 +301,23 @@
   </div>
 
   <script>
+    // Gerador de Estrelas na cor #98cdeb
+    const container = document.getElementById('stars-container');
+    const starIcons = ['✦', '✧', '✶', '✵'];
+
+    for (let i = 0; i < 30; i++) {
+      const star = document.createElement('span');
+      star.className = 'star';
+      star.innerHTML = starIcons[Math.floor(Math.random() * starIcons.length)];
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.fontSize = (Math.random() * 14 + 12) + 'px';
+      star.style.animationDelay = (Math.random() * 4) + 's';
+      star.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      container.appendChild(star);
+    }
+
+    // Modal
     function openModal() {
       document.getElementById('projectModal').classList.add('active');
       document.body.style.overflow = 'hidden';

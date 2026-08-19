@@ -44,10 +44,11 @@
       color: #98cdeb; /* Baby Blue */
       user-select: none;
       -webkit-user-select: none;
+      -webkit-touch-callout: none;
       cursor: grab;
       pointer-events: auto;
-      touch-action: none; /* Impede gestos padrão do navegador */
-      transition: color 0.2s ease, transform 0.1s ease;
+      touch-action: none; /* Trava o scroll da página ao arrastar */
+      transition: color 0.2s ease;
       z-index: 2;
     }
 
@@ -57,7 +58,7 @@
 
     .draggable-star.dragging {
       cursor: grabbing;
-      transform: scale(1.4);
+      color: #572c19;
       z-index: 9999;
     }
 
@@ -399,78 +400,66 @@
       star.className = 'draggable-star';
       star.innerHTML = starIcons[Math.floor(Math.random() * starIcons.length)];
       
-      const initialX = Math.random() * (window.innerWidth - 40);
-      const initialY = Math.random() * (window.innerHeight - 40);
+      const initialX = Math.random() * (window.innerWidth - 50);
+      const initialY = Math.random() * (window.innerHeight - 50);
       
       star.style.left = initialX + 'px';
       star.style.top = initialY + 'px';
-      star.style.fontSize = (Math.random() * 14 + 14) + 'px';
+      star.style.fontSize = (Math.random() * 16 + 18) + 'px'; // aumentei um pouco pra facilitar o clique/toque
 
-      makeDraggable(star);
+      makeElementDraggable(star);
       container.appendChild(star);
     }
 
-    function makeDraggable(element) {
-      let active = false;
-      let currentX;
-      let currentY;
-      let initialX;
-      let initialY;
-      let xOffset = 0;
-      let yOffset = 0;
+    function makeElementDraggable(el) {
+      let isDragging = false;
+      let offsetX = 0;
+      let offsetY = 0;
 
-      element.addEventListener("touchstart", dragStart, { passive: false });
-      element.addEventListener("touchend", dragEnd, { passive: false });
-      element.addEventListener("touchmove", drag, { passive: false });
+      function start(e) {
+        isDragging = true;
+        el.classList.add('dragging');
 
-      element.addEventListener("mousedown", dragStart);
-      element.addEventListener("mouseup", dragEnd);
-      element.addEventListener("mousemove", drag);
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
 
-      function dragStart(e) {
-        if (e.type === "touchstart") {
-          initialX = e.touches[0].clientX - xOffset;
-          initialY = e.touches[0].clientY - yOffset;
+        const rect = el.getBoundingClientRect();
+        offsetX = clientX - rect.left;
+        offsetY = clientY - rect.top;
+
+        if (e.type === 'touchstart') {
+          window.addEventListener('touchmove', move, { passive: false });
+          window.addEventListener('touchend', stop);
         } else {
-          initialX = e.clientX - xOffset;
-          initialY = e.clientY - yOffset;
-        }
-
-        if (e.target === element) {
-          active = true;
-          element.classList.add('dragging');
+          window.addEventListener('mousemove', move);
+          window.addEventListener('mouseup', stop);
         }
       }
 
-      function dragEnd() {
-        initialX = currentX;
-        initialY = currentY;
-        active = false;
-        element.classList.remove('dragging');
+      function move(e) {
+        if (!isDragging) return;
+
+        if (e.cancelable) e.preventDefault();
+
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+        el.style.left = (clientX - offsetX) + 'px';
+        el.style.top = (clientY - offsetY) + 'px';
       }
 
-      function drag(e) {
-        if (active) {
-          e.preventDefault();
-        
-          if (e.type === "touchmove") {
-            currentX = e.touches[0].clientX - initialX;
-            currentY = e.touches[0].clientY - initialY;
-          } else {
-            currentX = e.clientX - initialX;
-            currentY = e.clientY - initialY;
-          }
+      function stop() {
+        isDragging = false;
+        el.classList.remove('dragging');
 
-          xOffset = currentX;
-          yOffset = currentY;
-
-          setTranslate(currentX, currentY, element);
-        }
+        window.removeEventListener('mousemove', move);
+        window.removeEventListener('mouseup', stop);
+        window.removeEventListener('touchmove', move);
+        window.removeEventListener('touchend', stop);
       }
 
-      function setTranslate(xPos, yPos, el) {
-        el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
-      }
+      el.addEventListener('mousedown', start);
+      el.addEventListener('touchstart', start, { passive: false });
     }
   </script>
 

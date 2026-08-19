@@ -107,7 +107,7 @@
       z-index: 5;
     }
 
-    /* Coluna da Esquerda: Logo, Texto e Imagem Ativo 12 */
+    /* Coluna da Esquerda: Logo e Texto */
     .bio-column {
       display: flex;
       flex-direction: column;
@@ -262,7 +262,7 @@
         margin-bottom: 5px;
       }
 
-      /* 2. LOGO + TEXTO + BOTÃO DE PROJETOS */
+      /* 2. LOGO + TEXTO */
       .bio-column {
         order: 2;
         align-items: center;
@@ -280,16 +280,7 @@
         margin-bottom: 15px;
       }
 
-      .projects-link-img {
-        margin-top: 15px;
-        margin-bottom: 15px;
-      }
-
-      .projects-link-img img {
-        width: 150px;
-      }
-
-      /* 3. FOTO POR ÚLTIMO DE TUDO */
+      /* 3. FOTO DEPOIS DO TEXTO */
       .photo-column {
         order: 3;
         width: 100%;
@@ -298,6 +289,17 @@
       .photo-wrapper {
         max-width: 310px;
         margin: 0 auto;
+      }
+
+      /* 4. BOTÃO PROJETOS POR ÚLTIMO DE TUDO */
+      .projects-link-img {
+        order: 4;
+        margin-top: 15px;
+        margin-bottom: 20px;
+      }
+
+      .projects-link-img img {
+        width: 150px;
       }
 
       .star-top-left { font-size: 3rem; top: -15px; left: -20px; }
@@ -340,7 +342,7 @@
   <!-- CONTEÚDO PRINCIPAL -->
   <main class="main-container">
     
-    <!-- NO NOVO CÓDIGO, AS REDES FICARAM AQUI DENTRO PRA PODEREM IR PRO TOPO NO CELULAR -->
+    <!-- 1º NO MOBILE: REDES SOCIAIS -->
     <nav class="social-bar">
       <a href="https://www.instagram.com/agosdsgn" target="_blank" rel="noopener" title="Instagram">
         <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -356,7 +358,7 @@
       </a>
     </nav>
 
-    <!-- LOGO + TEXTO + BOTÃO DE PROJETOS -->
+    <!-- 2º NO MOBILE: LOGO + TEXTO -->
     <section class="bio-column">
       <img src="Ativo%206.png" alt="agos dsgn" class="logo-img">
 
@@ -369,13 +371,9 @@
         
         <p>Hoje, uso toda essa bagagem para ajudar marcas a descobrirem seu potencial e transformá-lo em algo que faça sentido, tenha personalidade e seja verdadeiramente único.</p>
       </div>
-
-      <a href="projetos.html" class="projects-link-img">
-        <img src="Ativo%2012.png" alt="projetos">
-      </a>
     </section>
 
-    <!-- APENAS A FOTO (VAI PARA O FINAL NO MOBILE) -->
+    <!-- 3º NO MOBILE: FOTO -->
     <section class="photo-column">
       <div class="photo-wrapper">
         <span class="photo-star star-top-left">✶</span>
@@ -386,13 +384,18 @@
       </div>
     </section>
 
+    <!-- 4º NO MOBILE: BOTÃO DE PROJETOS -->
+    <a href="projetos.html" class="projects-link-img">
+      <img src="Ativo%2012.png" alt="projetos">
+    </a>
+
   </main>
 
   <script>
     const container = document.getElementById('stars-container');
     const starIcons = ['✦', '✧', '✶', '✵'];
     
-    // Poucas estrelas no celular (8) e quantidade normal no PC (25)
+    // 8 estrelas no celular e 25 no PC
     const isMobile = window.innerWidth <= 850;
     const totalStars = isMobile ? 8 : 25;
 

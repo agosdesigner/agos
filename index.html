@@ -7,7 +7,7 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -106,7 +106,8 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      padding-top: 10px;
+      /* Offset para a logo alinhar com o topo exato da foto na direita */
+      padding-top: 52px; 
     }
 
     /* Logo limpa sem contorno */
@@ -117,18 +118,16 @@
       display: block;
     }
 
+    /* Todo o texto da bio em itálico */
     .bio-text p {
       font-size: 0.95rem;
       color: #572c19;
       margin-bottom: 20px;
       line-height: 1.6;
-    }
-
-    .bio-text p.italic {
       font-style: italic;
     }
 
-    /* Link da Imagem Projetos com mais espaçamento superior (45px) */
+    /* Link da Imagem Projetos com espaçamento */
     .projects-link-img {
       display: inline-block;
       margin-top: 45px;
@@ -251,6 +250,7 @@
       .bio-column {
         align-items: center;
         text-align: center;
+        padding-top: 0;
       }
 
       .photo-column {
@@ -314,7 +314,7 @@
       <img src="Ativo%206.png" alt="agos dsgn" class="logo-img">
 
       <div class="bio-text">
-        <p class="italic">Desde muito nova, sempre fui curiosa e tagarela. Amava questionar tudo que podia!</p>
+        <p>Desde muito nova, sempre fui curiosa e tagarela. Amava questionar tudo que podia!</p>
         
         <p>Sempre me interessei por processos, maneiras de resolver problemas, entender o porquê das coisas, encontrar significado nos detalhes e descobrir o que faz uma ideia funcionar. Criar, para mim, sempre foi consequência dessa curiosidade.</p>
         

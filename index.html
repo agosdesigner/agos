@@ -28,25 +28,25 @@
 
     /* Container de Estrelas do Fundo */
     #stars-container {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       pointer-events: auto;
-      z-index: 100; /* Fica acima do conteúdo para receber o clique */
+      z-index: 100;
       overflow: hidden;
     }
 
     /* Estrelas Arrastáveis (Gerais) */
     .draggable-star {
-      position: fixed;
+      position: absolute;
       color: #98cdeb; /* Baby Blue */
       user-select: none;
       -webkit-user-select: none;
       cursor: grab;
       pointer-events: auto;
-      touch-action: none; /* Trava scroll no celular ao arrastar */
+      touch-action: none;
       transition: color 0.2s ease, transform 0.1s ease;
       z-index: 101;
     }
@@ -115,7 +115,7 @@
       align-items: flex-start;
       padding-top: 50px;
       position: relative;
-      z-index: 15; /* Para links e textos continuarem clicáveis */
+      z-index: 15;
     }
 
     .logo-img {
@@ -138,7 +138,7 @@
       margin-top: 25px;
       transition: transform 0.2s ease, opacity 0.2s ease;
       position: relative;
-      z-index: 200; /* Garante clique no botão de projetos */
+      z-index: 200;
     }
 
     .projects-link-img img {
@@ -171,7 +171,7 @@
       width: 100%;
       margin-bottom: 25px;
       position: relative;
-      z-index: 200; /* Garante clique nas redes sociais */
+      z-index: 200;
     }
 
     .social-bar a {
@@ -404,7 +404,6 @@
     const container = document.getElementById('stars-container');
     const starIcons = ['✦', '✧', '✶', '✵'];
     
-    // Função para aplicar arrasto em qualquer estrela
     function makeDraggable(el) {
       let isDragging = false;
       let startX, startY, startLeft, startTop;
@@ -417,10 +416,12 @@
         startY = e.clientY;
 
         const rect = el.getBoundingClientRect();
-        startLeft = rect.left;
-        startTop = rect.top;
+        
+        // Posição calculada considerando o scroll atual da página
+        startLeft = rect.left + window.scrollX;
+        startTop = rect.top + window.scrollY;
 
-        el.style.position = 'fixed';
+        el.style.position = 'absolute';
         el.style.left = startLeft + 'px';
         el.style.top = startTop + 'px';
         el.style.bottom = 'auto';
@@ -443,6 +444,9 @@
         if (!isDragging) return;
         isDragging = false;
         el.classList.remove('dragging');
+
+        el.style.position = 'absolute';
+
         try {
           el.releasePointerCapture(e.pointerId);
         } catch (err) {}
@@ -452,7 +456,7 @@
       el.addEventListener('pointercancel', stopDrag);
     }
 
-    // 1. Gerar estrelas do fundo e ativar arrasto
+    // 1. Gerar estrelas do fundo
     const isMobile = window.innerWidth <= 850;
     const totalBackgroundStars = isMobile ? 12 : 25;
 
@@ -461,9 +465,10 @@
       star.className = 'draggable-star';
       star.innerHTML = starIcons[Math.floor(Math.random() * starIcons.length)];
       
-      const initialX = Math.random() * (window.innerWidth - 50);
-      const initialY = Math.random() * (window.innerHeight - 50);
+      const initialX = Math.random() * (window.innerWidth - 50) + window.scrollX;
+      const initialY = Math.random() * (window.innerHeight - 50) + window.scrollY;
       
+      star.style.position = 'absolute';
       star.style.left = initialX + 'px';
       star.style.top = initialY + 'px';
       star.style.fontSize = (Math.random() * 16 + 18) + 'px';
@@ -472,7 +477,7 @@
       container.appendChild(star);
     }
 
-    // 2. Ativar arrasto nas estrelas fixas perto da foto
+    // 2. Ativar arrasto nas estrelas da foto
     document.querySelectorAll('.photo-star').forEach(star => {
       makeDraggable(star);
     });

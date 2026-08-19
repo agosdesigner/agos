@@ -32,7 +32,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      pointer-events: none; /* Não atrapalha os cliques no site */
+      pointer-events: none;
       z-index: 0;
       overflow: hidden;
     }
@@ -96,7 +96,7 @@
       z-index: 2;
     }
 
-    /* Link "voltar para o início" em fonte caligráfica / Blackadder */
+    /* Link "voltar para o início" */
     .back-link {
       display: inline-block;
       color: #572c19; /* Brown Sugar */
@@ -132,18 +132,17 @@
       width: 100%;
       height: auto;
       display: block;
-      filter: grayscale(100%); /* Capa em Preto e Branco */
+      filter: grayscale(100%);
       transition: filter 0.4s ease, transform 0.4s ease;
     }
 
-    /* Ao passar o mouse, ganha cor e sobe suavemente */
     .project-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(22, 10, 5, 0.12);
     }
 
     .project-card:hover img {
-      filter: grayscale(0%); /* Revela as cores originais no Hover */
+      filter: grayscale(0%);
     }
 
     /* Modal / Pop-up do Projeto */
@@ -154,7 +153,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: rgba(22, 10, 5, 0.85); /* Dark Brown com opacidade */
+      background-color: rgba(22, 10, 5, 0.85);
       z-index: 1000;
       align-items: center;
       justify-content: center;
@@ -176,7 +175,6 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    /* As fotos dentro do Modal ficam coloridas normalmente */
     .modal-content img {
       width: 100%;
       height: auto;
@@ -265,14 +263,15 @@
   </div>
 
   <div class="container">
-    <a href="index.html" class="back-link">&larr; voltar para o início</a>
+    <!-- LINK ATUALIZADO PARA VOLTAR PARAS A RAIZ -->
+    <a href="./" class="back-link">&larr; voltar para o início</a>
 
     <!-- Título da página -->
     <div style="margin-bottom: 25px;">
       <img src="Ativo%2012.png" alt="projetos" style="width: 200px; height: auto;">
     </div>
 
-    <!-- CARD APENAS DA CAPA (EM PRETO E BRANCO COM HOVER COLORIDO) -->
+    <!-- CARD APENAS DA CAPA -->
     <div class="projects-grid">
       <div class="project-card" onclick="openModal()">
         <img src="capa_davipan.png.png" alt="Capa Jornada Davipan">

@@ -38,17 +38,16 @@
       overflow: hidden;
     }
 
-    /* Estrelas Arrastáveis */
+    /* Estrelas Arrastáveis (Gerais) */
     .draggable-star {
       position: fixed;
       color: #98cdeb; /* Baby Blue */
       user-select: none;
       -webkit-user-select: none;
-      -webkit-touch-callout: none;
       cursor: grab;
       pointer-events: auto;
-      touch-action: none; /* Trava o scroll da página ao arrastar */
-      transition: color 0.2s ease;
+      touch-action: none; /* Impede que o toque puxe a tela no celular */
+      transition: color 0.2s ease, transform 0.1s ease;
       z-index: 2;
     }
 
@@ -59,7 +58,8 @@
     .draggable-star.dragging {
       cursor: grabbing;
       color: #572c19;
-      z-index: 9999;
+      transform: scale(1.3);
+      z-index: 9999 !important;
     }
 
     /* Faixa Superior Infinita (#98cdeb) */
@@ -149,7 +149,7 @@
       opacity: 0.85;
     }
 
-    /* Coluna Direita: Redes + Foto com Estrelas Fixas */
+    /* Coluna Direita: Redes + Foto com Estrelas */
     .right-side {
       display: flex;
       flex-direction: column;
@@ -217,14 +217,18 @@
       user-select: none;
     }
 
-    /* Estrelas Decorativas em Volta da Foto */
+    /* Estrelas Decorativas da Foto (Agora Arrastáveis) */
     .photo-star {
       position: absolute;
       color: #572c19;
       user-select: none;
-      pointer-events: none;
-      z-index: 3;
+      -webkit-user-select: none;
+      cursor: grab;
+      pointer-events: auto;
+      touch-action: none;
+      z-index: 10;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+      transition: transform 0.1s ease;
     }
 
     .star-top-left {
@@ -392,10 +396,11 @@
     const container = document.getElementById('stars-container');
     const starIcons = ['✦', '✧', '✶', '✵'];
     
+    // Gerar estrelas do fundo
     const isMobile = window.innerWidth <= 850;
-    const totalStars = isMobile ? 8 : 25;
+    const totalBackgroundStars = isMobile ? 12 : 25;
 
-    for (let i = 0; i < totalStars; i++) {
+    for (let i = 0; i < totalBackgroundStars; i++) {
       const star = document.createElement('span');
       star.className = 'draggable-star';
       star.innerHTML = starIcons[Math.floor(Math.random() * starIcons.length)];
@@ -405,62 +410,73 @@
       
       star.style.left = initialX + 'px';
       star.style.top = initialY + 'px';
-      star.style.fontSize = (Math.random() * 16 + 18) + 'px'; // aumentei um pouco pra facilitar o clique/toque
+      star.style.fontSize = (Math.random() * 16 + 18) + 'px';
 
-      makeElementDraggable(star);
       container.appendChild(star);
     }
 
-    function makeElementDraggable(el) {
-      let isDragging = false;
-      let offsetX = 0;
-      let offsetY = 0;
+    // Tornar TODAS as estrelas do site (fundo + em volta da foto) arrastáveis
+    function initAllStars() {
+      const allStars = document.querySelectorAll('.draggable-star, .photo-star');
+      
+      allStars.forEach(star => {
+        makeDraggable(star);
+      });
+    }
 
-      function start(e) {
+    function makeDraggable(el) {
+      let isDragging = false;
+      let startX, startY, startLeft, startTop;
+
+      el.addEventListener('pointerdown', (e) => {
         isDragging = true;
         el.classList.add('dragging');
 
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        // Posição inicial do ponteiro/toque
+        startX = e.clientX;
+        startY = e.clientY;
 
+        // Posição atual exata do elemento na tela
         const rect = el.getBoundingClientRect();
-        offsetX = clientX - rect.left;
-        offsetY = clientY - rect.top;
+        startLeft = rect.left;
+        startTop = rect.top;
 
-        if (e.type === 'touchstart') {
-          window.addEventListener('touchmove', move, { passive: false });
-          window.addEventListener('touchend', stop);
-        } else {
-          window.addEventListener('mousemove', move);
-          window.addEventListener('mouseup', stop);
-        }
-      }
+        // Fixa a posição no viewport no momento em que é clicada
+        el.style.position = 'fixed';
+        el.style.left = startLeft + 'px';
+        el.style.top = startTop + 'px';
+        el.style.bottom = 'auto';
+        el.style.right = 'auto';
 
-      function move(e) {
+        // Captura o ponteiro pra não perder o arrasto se mover rápido
+        el.setPointerCapture(e.pointerId);
+      });
+
+      el.addEventListener('pointermove', (e) => {
         if (!isDragging) return;
 
-        if (e.cancelable) e.preventDefault();
+        const deltaX = e.clientX - startX;
+        const deltaY = e.clientY - startY;
 
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        el.style.left = (startLeft + deltaX) + 'px';
+        el.style.top = (startTop + deltaY) + 'px';
+      });
 
-        el.style.left = (clientX - offsetX) + 'px';
-        el.style.top = (clientY - offsetY) + 'px';
-      }
-
-      function stop() {
+      const stopDrag = (e) => {
+        if (!isDragging) return;
         isDragging = false;
         el.classList.remove('dragging');
+        try {
+          el.releasePointerCapture(e.pointerId);
+        } catch (err) {}
+      };
 
-        window.removeEventListener('mousemove', move);
-        window.removeEventListener('mouseup', stop);
-        window.removeEventListener('touchmove', move);
-        window.removeEventListener('touchend', stop);
-      }
-
-      el.addEventListener('mousedown', start);
-      el.addEventListener('touchstart', start, { passive: false });
+      el.addEventListener('pointerup', stopDrag);
+      el.addEventListener('pointercancel', stopDrag);
     }
+
+    // Inicializa quando a página carregar
+    window.addEventListener('DOMContentLoaded', initAllStars);
   </script>
 
 </body>

@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projetos — agos dsgn</title>
+  <title>AGOS DSGN — Início</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500&family=Alex+Brush&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&family=Alex+Brush&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -17,20 +17,55 @@
     }
 
     body {
-      background-color: #f2f3f7;
-      color: #3a1c18;
+      background-color: #ededed; /* Ice */
+      color: #572c19; /* Brown Sugar */
       font-family: 'Plus Jakarta Sans', sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* Faixa Superior Infinita */
+    /* Container das Estrelas Flutuantes (#98cdeb) */
+    #stars-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      color: #98cdeb; /* Baby Blue */
+      user-select: none;
+      animation: floatStar 4s ease-in-out infinite alternate, fadeStar 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatStar {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-18px) rotate(25deg); }
+    }
+
+    @keyframes fadeStar {
+      0% { opacity: 0.3; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* Faixa Superior Infinita (#98cdeb) */
     .top-ticker {
-      background-color: #b0cbe8;
+      background-color: #98cdeb; /* Baby Blue */
       overflow: hidden;
       white-space: nowrap;
       padding: 6px 0;
       width: 100%;
+      position: relative;
+      z-index: 2;
     }
 
     .ticker-track {
@@ -47,7 +82,7 @@
       font-weight: 500;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #3a1c18;
+      color: #160a05; /* Dark Brown */
     }
 
     @keyframes marquee {
@@ -55,135 +90,60 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* Container Principal */
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 30px 20px 60px 20px;
-    }
-
-    /* Link "voltar para o início" em fonte caligráfica / Blackadder */
-    .back-link {
-      display: inline-block;
-      color: #3a1c18;
-      text-decoration: none;
-      font-family: 'Blackadder ITC', 'Alex Brush', cursive;
-      font-size: 1.6rem;
-      margin-bottom: 20px;
-      transition: opacity 0.2s;
-    }
-
-    .back-link:hover {
-      opacity: 0.7;
-    }
-
-    /* Card da Capa no Grid */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 25px;
-    }
-
-    .project-card {
-      background-color: #ffffff;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-    }
-
-    .project-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* Modal / Pop-up do Projeto */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.85);
-      z-index: 1000;
+    /* Hero Centralizado */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal-content {
+      padding: 40px 20px;
+      text-align: center;
       position: relative;
-      max-width: 850px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      background-color: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      z-index: 2;
     }
 
-    .modal-content img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .hero-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #572c19;
     }
 
-    .modal-content::-webkit-scrollbar {
-      width: 8px;
-    }
-    .modal-content::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 0 12px 12px 0;
-    }
-    .modal-content::-webkit-scrollbar-thumb {
-      background: #3a1c18;
-      border-radius: 10px;
+    .hero-subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 500px;
+      opacity: 0.9;
     }
 
-    /* Botão de Fechar */
-    .close-btn {
-      position: fixed;
-      top: 20px;
-      right: 30px;
-      background: #ffffff;
-      color: #3a1c18;
-      border: none;
-      font-size: 1.5rem;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 1001;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    /* Botão Principal para os Projetos */
+    .btn-projects {
+      display: inline-block;
+      background-color: #572c19; /* Brown Sugar */
+      color: #ededed; /* Ice */
+      padding: 14px 32px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      box-shadow: 0 4px 15px rgba(22, 10, 5, 0.15);
+      transition: all 0.3s ease;
     }
 
-    @media (max-width: 768px) {
-      .projects-grid { grid-template-columns: 1fr; }
-      .close-btn { top: 15px; right: 15px; width: 38px; height: 38px; }
-      .modal-content { max-height: 85vh; }
-      .back-link { font-size: 1.3rem; }
+    .btn-projects:hover {
+      background-color: #160a05; /* Dark Brown */
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(22, 10, 5, 0.25);
     }
   </style>
 </head>
 <body>
 
-  <!-- Faixa Superior Infinita -->
+  <!-- ESTRELAS FLUTUANTES NO FUNDO (#98cdeb) -->
+  <div id="stars-container"></div>
+
+  <!-- Faixa Superior Infinita (#98cdeb) -->
   <div class="top-ticker">
     <div class="ticker-track">
       <div class="ticker-content">
@@ -217,56 +177,30 @@
     </div>
   </div>
 
-  <div class="container">
-    <a href="index.html" class="back-link">&larr; voltar para o início</a>
-
-    <!-- Título da página -->
-    <div style="margin-bottom: 25px;">
-      <img src="Ativo%2012.png" alt="projetos" style="width: 200px; height: auto;">
-    </div>
-
-    <!-- CARD APENAS DA CAPA -->
-    <div class="projects-grid">
-      <div class="project-card" onclick="openModal()">
-        <img src="capa_davipan.png.png" alt="Capa Jornada Davipan">
-      </div>
-    </div>
-  </div>
-
-  <!-- TELA MAIOR (MODAL) COM AS FOTOS DO PROJETO -->
-  <div class="modal-overlay" id="projectModal" onclick="closeModalOnOuterClick(event)">
-    <button class="close-btn" onclick="closeModal()">&times;</button>
-    <div class="modal-content">
-      <img src="capa_davipan.png.png" alt="Capa Davipan">
-      <img src="foto2.png.png" alt="Davipan - Foto 2">
-      <img src="foto3.png.png" alt="Davipan - Foto 3">
-      <img src="foto4.png.png" alt="Davipan - Foto 4">
-      <img src="foto5.png.png" alt="Davipan - Foto 5">
-      <img src="foto6.png.png" alt="Davipan - Foto 6">
-      <img src="foto7.png.png" alt="Davipan - Foto 7">
-      <img src="foto8.png.png" alt="Davipan - Foto 8">
-      <img src="foto9.png.png" alt="Davipan - Foto 9">
-      <img src="foto10.png.png" alt="Davipan - Foto 10">
-      <img src="foto11.png.png" alt="Davipan - Foto 11">
-      <img src="foto12.png.png" alt="Davipan - Foto 12">
-    </div>
-  </div>
+  <!-- CONTEÚDO PRINCIPAL (HOME) -->
+  <main class="hero">
+    <h1 class="hero-title">agos dsgn</h1>
+    <p class="hero-subtitle">Design, identidade visual e portfólio de projetos.</p>
+    
+    <!-- Link apontando para a página de projetos -->
+    <a href="projetos.html" class="btn-projects">Ver Projetos &#8594;</a>
+  </main>
 
   <script>
-    function openModal() {
-      document.getElementById('projectModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
+    // Gerador de Estrelas na cor #98cdeb
+    const container = document.getElementById('stars-container');
+    const starIcons = ['✦', '✧', '✶', '✵'];
 
-    function closeModal() {
-      document.getElementById('projectModal').classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-
-    function closeModalOnOuterClick(event) {
-      if (event.target.classList.contains('modal-overlay')) {
-        closeModal();
-      }
+    for (let i = 0; i < 30; i++) {
+      const star = document.createElement('span');
+      star.className = 'star';
+      star.innerHTML = starIcons[Math.floor(Math.random() * starIcons.length)];
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.fontSize = (Math.random() * 14 + 12) + 'px';
+      star.style.animationDelay = (Math.random() * 4) + 's';
+      star.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      container.appendChild(star);
     }
   </script>
 

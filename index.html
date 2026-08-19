@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>agos dsgn</title>
+  <title>Projetos — agos dsgn</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500&family=Alex+Brush&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -17,21 +17,52 @@
     }
 
     body {
-      background-color: #f2f3f7;
-      color: #3a1c18;
+      background-color: #ededed; /* Ice */
+      color: #572c19; /* Brown Sugar */
       font-family: 'Plus Jakarta Sans', sans-serif;
       line-height: 1.6;
       overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Container das Estrelas Flutuantes */
+    #stars-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none; /* Não atrapalha os cliques no site */
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .star {
+      position: absolute;
+      color: #98cdeb; /* Baby Blue */
+      user-select: none;
+      animation: floatStar 4s ease-in-out infinite alternate, fadeStar 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes floatStar {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-18px) rotate(25deg); }
+    }
+
+    @keyframes fadeStar {
+      0% { opacity: 0.3; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.3); }
     }
 
     /* Faixa Superior Infinita */
     .top-ticker {
-      background-color: #b0cbe8;
+      background-color: #98cdeb; /* Baby Blue */
       overflow: hidden;
       white-space: nowrap;
       padding: 6px 0;
-      display: flex;
       width: 100%;
+      position: relative;
+      z-index: 2;
     }
 
     .ticker-track {
@@ -48,7 +79,7 @@
       font-weight: 500;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: #3a1c18;
+      color: #160a05; /* Dark Brown */
     }
 
     @keyframes marquee {
@@ -56,189 +87,150 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* Header de Ações Alinhado perfeitamente com a Foto */
-    .header-actions {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      gap: 10px;
-      padding: 25px 0 0 0;
+    /* Container Principal */
+    .container {
       max-width: 1000px;
       margin: 0 auto;
+      padding: 30px 20px 60px 20px;
+      position: relative;
+      z-index: 2;
     }
 
-    .action-btn {
-      display: inline-flex;
+    /* Link "voltar para o início" em fonte caligráfica / Blackadder */
+    .back-link {
+      display: inline-block;
+      color: #572c19; /* Brown Sugar */
+      text-decoration: none;
+      font-family: 'Blackadder ITC', 'Alex Brush', cursive;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover {
+      opacity: 0.7;
+    }
+
+    /* Card da Capa no Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+    .project-card {
+      background-color: #ffffff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(22, 10, 5, 0.05);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Efeito de Preto e Branco na Capa do Projeto */
+    .project-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: grayscale(100%); /* Capa em Preto e Branco */
+      transition: filter 0.4s ease, transform 0.4s ease;
+    }
+
+    /* Ao passar o mouse, ganha cor e sobe suavemente */
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(22, 10, 5, 0.12);
+    }
+
+    .project-card:hover img {
+      filter: grayscale(0%); /* Revela as cores originais no Hover */
+    }
+
+    /* Modal / Pop-up do Projeto */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(22, 10, 5, 0.85); /* Dark Brown com opacidade */
+      z-index: 1000;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      background-color: #3a1c18;
-      color: #f2f3f7;
-      padding: 10px 18px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      padding: 20px;
     }
 
-    .action-btn.icon-only {
-      width: 40px;
-      height: 40px;
-      padding: 0;
-      border-radius: 50%;
-    }
-
-    .action-btn:hover {
-      transform: translateY(-2px);
-      opacity: 0.9;
-    }
-
-    .action-btn svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-    }
-
-    /* Layout Geral */
-    .page {
-      padding: 30px 8% 20px 8%;
+    .modal-overlay.active {
       display: flex;
-      align-items: center;
+    }
+
+    .modal-content {
       position: relative;
-    }
-
-    .page-projects {
-      padding: 20px 8% 60px 8%;
-    }
-
-    .star-shape {
-      position: absolute;
-      fill: #3a1c18;
-      pointer-events: none;
-      z-index: 10;
-    }
-
-    /* Página 1: Sobre */
-    .about-container {
-      display: flex;
-      gap: 70px;
-      align-items: flex-start;
+      max-width: 850px;
       width: 100%;
-      max-width: 1000px;
-      margin: 0 auto;
+      max-height: 90vh;
+      overflow-y: auto;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    .about-content-left {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .brand-logo {
-      width: 160px;
-      height: auto;
-      margin-bottom: 35px;
-      display: block;
-    }
-
-    .about-text p {
-      font-size: 0.92rem;
-      color: #3a1c18;
-      line-height: 1.6;
-    }
-
-    .about-text p:not(:last-child) {
-      margin-bottom: 18px;
-    }
-
-    .about-text em {
-      font-style: italic;
-    }
-
-    /* Foto */
-    .photo-wrapper {
-      position: relative;
-      width: 360px;
-      flex-shrink: 0;
-    }
-
-    .photo-wrapper img {
+    /* As fotos dentro do Modal ficam coloridas normalmente */
+    .modal-content img {
       width: 100%;
       height: auto;
       display: block;
-      filter: grayscale(100%);
+      filter: none;
     }
 
-    /* Posicionamento das Estrelas */
-    .photo-wrapper .s1 {
-      top: -20px;
-      left: -25px;
-      width: 55px;
-      height: 55px;
+    .modal-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    .modal-content::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 0 12px 12px 0;
+    }
+    .modal-content::-webkit-scrollbar-thumb {
+      background: #572c19;
+      border-radius: 10px;
     }
 
-    .photo-wrapper .s2 {
-      top: 35%;
-      right: -25px;
+    /* Botão de Fechar */
+    .close-btn {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      background: #ffffff;
+      color: #572c19;
+      border: none;
+      font-size: 1.5rem;
       width: 45px;
       height: 45px;
-    }
-
-    .photo-wrapper .s3 {
-      bottom: -25px;
-      left: 40%;
-      width: 55px;
-      height: 55px;
-    }
-
-    /* Página 2: Projetos */
-    .projects-container {
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    .section-title-img {
-      width: 220px;
-      height: auto;
-      display: block;
+      border-radius: 50%;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      z-index: 1001;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
 
-    .section-title-img:hover {
-      transform: scale(1.05);
-    }
-
-    /* Responsividade */
-    @media (max-width: 1060px) {
-      .header-actions { padding: 20px 8% 0 8%; }
-    }
-
-    @media (max-width: 850px) {
-      .header-actions { padding: 15px 6% 0 6%; }
-      .page { padding: 20px 6% 20px 6%; }
-      .page-projects { padding: 20px 6% 40px 6%; }
-      .about-container { flex-direction: column; gap: 40px; }
-      .photo-wrapper { width: 100%; }
-      .action-btn { padding: 8px 14px; font-size: 0.75rem; }
-      .action-btn.icon-only { width: 34px; height: 34px; }
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .close-btn { top: 15px; right: 15px; width: 38px; height: 38px; }
+      .modal-content { max-height: 85vh; }
+      .back-link { font-size: 1.3rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- SVG da Estrela -->
-  <svg style="display: none;">
-    <g id="sharp-star">
-      <path d="M20,0 C20,13 27,20 40,20 C27,20 20,27 20,40 C20,27 13,20 0,20 C13,20 20,13 20,0 Z"/>
-    </g>
-  </svg>
+  <!-- ESTRELAS FLUTUANTES NO FUNDO (#98cdeb) -->
+  <div id="stars-container"></div>
 
-  <!-- Faixa Superior -->
+  <!-- Faixa Superior Infinita (#98cdeb) -->
   <div class="top-ticker">
     <div class="ticker-track">
       <div class="ticker-content">
@@ -272,58 +264,75 @@
     </div>
   </div>
 
-  <!-- Botões de Ação no Topo -->
-  <div class="header-actions">
-    <a href="https://wa.me/5541920031627?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento." target="_blank" rel="noopener noreferrer" class="action-btn">
-      <svg viewBox="0 0 24 24">
-        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-      </svg>
-      Solicitar orçamento
-    </a>
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; voltar para o início</a>
 
-    <a href="mailto:agos.studiocriativo@gmail.com" class="action-btn icon-only" title="E-mail">
-      <svg viewBox="0 0 24 24">
-        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-      </svg>
-    </a>
+    <!-- Título da página -->
+    <div style="margin-bottom: 25px;">
+      <img src="Ativo%2012.png" alt="projetos" style="width: 200px; height: auto;">
+    </div>
 
-    <a href="https://www.instagram.com/agosdsgn" target="_blank" rel="noopener noreferrer" class="action-btn icon-only" title="Instagram">
-      <svg viewBox="0 0 24 24">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-      </svg>
-    </a>
+    <!-- CARD APENAS DA CAPA (EM PRETO E BRANCO COM HOVER COLORIDO) -->
+    <div class="projects-grid">
+      <div class="project-card" onclick="openModal()">
+        <img src="capa_davipan.png.png" alt="Capa Jornada Davipan">
+      </div>
+    </div>
   </div>
 
-  <!-- PÁGINA 1: SOBRE -->
-  <section class="page">
-    <div class="about-container">
-      <div class="about-content-left">
-        <img src="Ativo%206.png" alt="agos dsgn" class="brand-logo">
-        <div class="about-text">
-          <p>Desde muito nova, sempre fui curiosa e tagarela. Amava questionar tudo que podia!</p>
-          <p>Sempre me interessei por processos, maneiras de resolver problemas, entender o porquê das coisas, encontrar significado nos detalhes e descobrir o que faz uma ideia funcionar. <em>Criar, para mim, sempre foi consequência dessa curiosidade.</em></p>
-          <p>Talvez por isso o design tenha feito tanto sentido. Encontrei uma profissão onde observar, questionar e entender fazem parte do trabalho.</p>
-          <p>Hoje, uso toda essa bagagem para ajudar marcas a descobrirem seu potencial e transformá-lo em algo que faça sentido, tenha personalidade e seja verdadeiramente seu.</p>
-        </div>
-      </div>
-
-      <div class="photo-wrapper">
-        <svg class="star-shape s1" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
-        <svg class="star-shape s2" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
-        <svg class="star-shape s3" viewBox="0 0 40 40"><use href="#sharp-star"/></svg>
-        <img src="ativo.JPEG" alt="Foto de perfil">
-      </div>
+  <!-- TELA MAIOR (MODAL) COM AS FOTOS DO PROJETO -->
+  <div class="modal-overlay" id="projectModal" onclick="closeModalOnOuterClick(event)">
+    <button class="close-btn" onclick="closeModal()">&times;</button>
+    <div class="modal-content">
+      <img src="capa_davipan.png.png" alt="Capa Davipan">
+      <img src="foto2.png.png" alt="Davipan - Foto 2">
+      <img src="foto3.png.png" alt="Davipan - Foto 3">
+      <img src="foto4.png.png" alt="Davipan - Foto 4">
+      <img src="foto5.png.png" alt="Davipan - Foto 5">
+      <img src="foto6.png.png" alt="Davipan - Foto 6">
+      <img src="foto7.png.png" alt="Davipan - Foto 7">
+      <img src="foto8.png.png" alt="Davipan - Foto 8">
+      <img src="foto9.png.png" alt="Davipan - Foto 9">
+      <img src="foto10.png.png" alt="Davipan - Foto 10">
+      <img src="foto11.png.png" alt="Davipan - Foto 11">
+      <img src="foto12.png.png" alt="Davipan - Foto 12">
     </div>
-  </section>
+  </div>
 
-  <!-- PÁGINA 2: LINK PARA PROJETOS -->
-  <section class="page page-projects">
-    <div class="projects-container">
-      <a href="projetos.html">
-        <img src="Ativo%2012.png" alt="projetos" class="section-title-img">
-      </a>
-    </div>
-  </section>
+  <script>
+    // Gerador de Estrelas na cor #98cdeb
+    const container = document.getElementById('stars-container');
+    const starIcons = ['✦', '✧', '✶', '✵'];
+
+    for (let i = 0; i < 30; i++) {
+      const star = document.createElement('span');
+      star.className = 'star';
+      star.innerHTML = starIcons[Math.floor(Math.random() * starIcons.length)];
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.fontSize = (Math.random() * 14 + 12) + 'px';
+      star.style.animationDelay = (Math.random() * 4) + 's';
+      star.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      container.appendChild(star);
+    }
+
+    // Modal
+    function openModal() {
+      document.getElementById('projectModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('projectModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function closeModalOnOuterClick(event) {
+      if (event.target.classList.contains('modal-overlay')) {
+        closeModal();
+      }
+    }
+  </script>
 
 </body>
 </html>

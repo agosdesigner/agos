@@ -55,6 +55,29 @@
       100% { opacity: 1; transform: scale(1.3); }
     }
 
+    /* Cabeçalho com Redes Sociais / Navegação */
+    .top-nav {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 25px;
+      padding: 20px 40px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .top-nav a {
+      color: #572c19;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .top-nav a:hover {
+      opacity: 0.7;
+    }
+
     /* Faixa Superior Infinita (#98cdeb) */
     .top-ticker {
       background-color: #98cdeb; /* Baby Blue */
@@ -92,7 +115,7 @@
     .main-container {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 60px 20px;
+      padding: 40px 20px 60px 20px;
       display: grid;
       grid-template-columns: 1.2fr 1fr;
       gap: 50px;
@@ -101,7 +124,7 @@
       z-index: 2;
     }
 
-    /* Coluna da Esquerda: Logo, Texto e Botão */
+    /* Coluna da Esquerda: Logo, Texto e Botão/Imagem Projetos */
     .bio-column {
       display: flex;
       flex-direction: column;
@@ -126,27 +149,25 @@
       font-style: italic;
     }
 
-    .btn-projects {
+    /* Link da Imagem Projetos (Ativo 12.png) */
+    .projects-link-img {
       display: inline-block;
       margin-top: 15px;
-      background-color: #572c19; /* Brown Sugar */
-      color: #ededed; /* Ice */
-      padding: 12px 28px;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.95rem;
-      box-shadow: 0 4px 15px rgba(22, 10, 5, 0.1);
-      transition: all 0.3s ease;
+      transition: transform 0.2s ease, opacity 0.2s ease;
     }
 
-    .btn-projects:hover {
-      background-color: #160a05; /* Dark Brown */
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(22, 10, 5, 0.2);
+    .projects-link-img img {
+      width: 180px;
+      height: auto;
+      display: block;
     }
 
-    /* Coluna da Direita: Foto com as Estrelas Fixas em Volta */
+    .projects-link-img:hover {
+      transform: scale(1.05);
+      opacity: 0.85;
+    }
+
+    /* Coluna da Direita: Foto com Estrelas */
     .photo-column {
       position: relative;
       display: flex;
@@ -168,7 +189,7 @@
       box-shadow: 0 10px 30px rgba(22, 10, 5, 0.08);
     }
 
-    /* Estrelas Decorativas da Foto (Tom Brown Sugar #572c19) */
+    /* Estrelas Decorativas em Volta da Foto */
     .photo-star {
       position: absolute;
       color: #572c19;
@@ -196,9 +217,14 @@
     }
 
     @media (max-width: 850px) {
+      .top-nav {
+        justify-content: center;
+        padding: 15px 20px;
+      }
+
       .main-container {
         grid-template-columns: 1fr;
-        padding: 40px 20px;
+        padding: 30px 20px;
         gap: 40px;
       }
 
@@ -208,7 +234,7 @@
       }
 
       .photo-column {
-        order: -1; /* Coloca a foto em cima no celular */
+        order: -1;
       }
 
       .photo-wrapper {
@@ -221,6 +247,13 @@
 
   <!-- ESTRELAS FLUTUANTES NO FUNDO (#98cdeb) -->
   <div id="stars-container"></div>
+
+  <!-- NAVEGAÇÃO / REDES SOCIAIS -->
+  <nav class="top-nav">
+    <a href="https://instagram.com" target="_blank" rel="noopener">instagram</a>
+    <a href="https://behance.net" target="_blank" rel="noopener">behance</a>
+    <a href="https://wa.me/" target="_blank" rel="noopener">contato</a>
+  </nav>
 
   <!-- FAIXA SUPERIOR INFINITA (#98cdeb) -->
   <div class="top-ticker">
@@ -259,9 +292,8 @@
   <!-- CONTEÚDO PRINCIPAL (HOME) -->
   <main class="main-container">
     
-    <!-- ESQUERDA: LOGO + SEU TEXTO ORIGINAL + BOTÃO -->
+    <!-- ESQUERDA: LOGO + TEXTO + IMAGEM ATIVO 12 COMO LINK -->
     <section class="bio-column">
-      <!-- Logo agos dsgn (Ativo 6.png ou Ativo 2.png) -->
       <img src="Ativo%206.png" alt="agos dsgn" class="logo-img">
 
       <div class="bio-text">
@@ -274,18 +306,19 @@
         <p>Hoje, uso toda essa bagagem para ajudar marcas a descobrirem seu potencial e transformá-lo em algo que faça sentido, tenha personalidade e seja verdadeiramente seu.</p>
       </div>
 
-      <a href="projetos.html" class="btn-projects">ver projetos &#8594;</a>
+      <!-- IMAGEM ATIVO 12.PNG (PROJETOS) CLICÁVEL -->
+      <a href="projetos.html" class="projects-link-img">
+        <img src="Ativo%2012.png" alt="projetos">
+      </a>
     </section>
 
-    <!-- DIREITA: SUA FOTO COM AS ESTRELAS FIXAS DA COMPOSIÇÃO -->
+    <!-- DIREITA: SUA FOTO COM AS ESTRELAS FIXAS -->
     <section class="photo-column">
       <div class="photo-wrapper">
-        <!-- Estrelas maiores decorando a foto -->
         <span class="photo-star star-top-left">✶</span>
         <span class="photo-star star-top-right">✦</span>
         <span class="photo-star star-bottom-right">✶</span>
 
-        <!-- Sua foto carregada como ativo.JPEG -->
         <img src="ativo.JPEG" alt="Sua foto" class="profile-photo">
       </div>
     </section>

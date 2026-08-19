@@ -26,14 +26,14 @@
       min-height: 100vh;
     }
 
-    /* Contêiner de Estrelas Interativas no Fundo (#98cdeb) */
+    /* Contêiner de Estrelas Interativas do Fundo (#98cdeb) */
     #stars-container {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      pointer-events: none; /* Deixa o fundo clicável, as estrelas em si ganham pointer-events auto */
+      pointer-events: none;
       z-index: 1;
       overflow: hidden;
     }
@@ -43,19 +43,19 @@
       color: #98cdeb; /* Baby Blue */
       user-select: none;
       cursor: grab;
-      pointer-events: auto; /* Permite clicar e arrastar */
-      touch-action: none;   /* Impede scroll da tela ao arrastar no celular */
+      pointer-events: auto; /* Permite arrastar apenas estas */
+      touch-action: none;
       transition: transform 0.1s ease, color 0.2s ease;
     }
 
     .star:hover {
-      color: #572c19; /* Fica marrom sutil ao passar o mouse */
+      color: #572c19;
     }
 
     .star.dragging {
       cursor: grabbing;
       transform: scale(1.4);
-      z-index: 1000; /* Fica acima das outras estrelas durante o arrasto */
+      z-index: 1000;
     }
 
     /* Faixa Superior Infinita (#98cdeb) */
@@ -112,11 +112,13 @@
       padding-top: 52px; 
     }
 
+    /* Logo limpa e travada */
     .logo-img {
       width: 180px;
       height: auto;
       margin-bottom: 35px;
       display: block;
+      user-select: none;
     }
 
     .bio-text p {
@@ -137,6 +139,7 @@
       width: 180px;
       height: auto;
       display: block;
+      user-select: none;
     }
 
     .projects-link-img:hover {
@@ -209,12 +212,15 @@
       display: block;
       border-radius: 4px;
       box-shadow: 0 10px 30px rgba(22, 10, 5, 0.08);
+      user-select: none;
     }
 
+    /* Estrelas Decorativas em Volta da Foto (FIXAS/IMÓVEIS) */
     .photo-star {
       position: absolute;
       color: #572c19;
       user-select: none;
+      pointer-events: none; /* Não reage ao mouse/arrasto */
       z-index: 3;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     }
@@ -265,7 +271,7 @@
 </head>
 <body>
 
-  <!-- ESTRELAS INTERATIVAS E ARRASTÁVEIS NO FUNDO (#98cdeb) -->
+  <!-- ESTRELAS ARRASTÁVEIS APENAS NO FUNDO -->
   <div id="stars-container"></div>
 
   <!-- FAIXA SUPERIOR INFINITA (#98cdeb) -->
@@ -348,7 +354,7 @@
           </a>
         </nav>
 
-        <!-- Estrelas em volta da foto -->
+        <!-- Estrelas em volta da foto (FIXAS) -->
         <span class="photo-star star-top-left">✶</span>
         <span class="photo-star star-top-right">✦</span>
         <span class="photo-star star-bottom-right">✶</span>
@@ -364,13 +370,12 @@
     const starIcons = ['✦', '✧', '✶', '✵'];
     const totalStars = 32;
 
-    // Gerador de Estrelas em posições aleatórias
+    // Apenas cria e ativa o arrasto nas estrelas que nascem no #stars-container
     for (let i = 0; i < totalStars; i++) {
       const star = document.createElement('span');
       star.className = 'star';
       star.innerHTML = starIcons[Math.floor(Math.random() * starIcons.length)];
       
-      // Posição inicial aleatória em pixels
       const initialX = Math.random() * (window.innerWidth - 30);
       const initialY = Math.random() * (window.innerHeight - 30);
       
@@ -378,12 +383,10 @@
       star.style.top = initialY + 'px';
       star.style.fontSize = (Math.random() * 16 + 14) + 'px';
 
-      // Ativa a funcionalidade de arrastar
       makeDraggable(star);
       container.appendChild(star);
     }
 
-    // Função de Drag & Drop para Mouse e Touch (Celular)
     function makeDraggable(element) {
       let isDragging = false;
       let offsetX = 0;
@@ -421,12 +424,10 @@
         }
       }
 
-      // Eventos de Mouse
       element.addEventListener('mousedown', onStart);
       window.addEventListener('mousemove', onMove);
       window.addEventListener('mouseup', onEnd);
 
-      // Eventos de Toque (Celulares / Tablets)
       element.addEventListener('touchstart', onStart, { passive: false });
       window.addEventListener('touchmove', onMove, { passive: false });
       window.addEventListener('touchend', onEnd);

@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AGOS DSGN — Início</title>
+  <title>agos dsgn</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 
   <style>
     * {
@@ -24,11 +24,9 @@
       overflow-x: hidden;
       position: relative;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
-    /* Container das Estrelas Flutuantes (#98cdeb) */
+    /* Estrelas Flutuantes no Fundo (#98cdeb) */
     #stars-container {
       position: fixed;
       top: 0;
@@ -90,45 +88,55 @@
       100% { transform: translateX(-50%); }
     }
 
-    /* Hero Centralizado */
-    .hero {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
+    /* Layout Principal da Home */
+    .main-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 50px;
       align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
-      text-align: center;
       position: relative;
       z-index: 2;
     }
 
+    /* Coluna da Esquerda: Logo, Texto e Botão */
+    .bio-column {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
     .logo-img {
-      width: 280px;
+      width: 180px;
       height: auto;
-      margin-bottom: 15px;
+      margin-bottom: 35px;
       display: block;
     }
 
-    .hero-subtitle {
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-      max-width: 500px;
+    .bio-text p {
+      font-size: 0.95rem;
       color: #572c19;
-      opacity: 0.85;
+      margin-bottom: 20px;
+      line-height: 1.6;
     }
 
-    /* Botão Principal para os Projetos */
+    .bio-text p.italic {
+      font-style: italic;
+    }
+
     .btn-projects {
       display: inline-block;
+      margin-top: 15px;
       background-color: #572c19; /* Brown Sugar */
       color: #ededed; /* Ice */
-      padding: 12px 30px;
+      padding: 12px 28px;
       border-radius: 30px;
       text-decoration: none;
       font-weight: 500;
       font-size: 0.95rem;
-      box-shadow: 0 4px 15px rgba(22, 10, 5, 0.12);
+      box-shadow: 0 4px 15px rgba(22, 10, 5, 0.1);
       transition: all 0.3s ease;
     }
 
@@ -138,9 +146,74 @@
       box-shadow: 0 6px 20px rgba(22, 10, 5, 0.2);
     }
 
-    @media (max-width: 768px) {
-      .logo-img { width: 200px; }
-      .hero-subtitle { font-size: 0.95rem; }
+    /* Coluna da Direita: Foto com as Estrelas Fixas em Volta */
+    .photo-column {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .photo-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .profile-photo {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+      box-shadow: 0 10px 30px rgba(22, 10, 5, 0.08);
+    }
+
+    /* Estrelas Decorativas da Foto (Tom Brown Sugar #572c19) */
+    .photo-star {
+      position: absolute;
+      color: #572c19;
+      user-select: none;
+      z-index: 3;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+
+    .star-top-left {
+      top: -25px;
+      left: -35px;
+      font-size: 4.5rem;
+    }
+
+    .star-top-right {
+      top: 30px;
+      right: -25px;
+      font-size: 2.8rem;
+    }
+
+    .star-bottom-right {
+      bottom: -35px;
+      right: 40px;
+      font-size: 4.8rem;
+    }
+
+    @media (max-width: 850px) {
+      .main-container {
+        grid-template-columns: 1fr;
+        padding: 40px 20px;
+        gap: 40px;
+      }
+
+      .bio-column {
+        align-items: center;
+        text-align: center;
+      }
+
+      .photo-column {
+        order: -1; /* Coloca a foto em cima no celular */
+      }
+
+      .photo-wrapper {
+        max-width: 300px;
+      }
     }
   </style>
 </head>
@@ -149,7 +222,7 @@
   <!-- ESTRELAS FLUTUANTES NO FUNDO (#98cdeb) -->
   <div id="stars-container"></div>
 
-  <!-- Faixa Superior Infinita (#98cdeb) -->
+  <!-- FAIXA SUPERIOR INFINITA (#98cdeb) -->
   <div class="top-ticker">
     <div class="ticker-track">
       <div class="ticker-content">
@@ -184,18 +257,43 @@
   </div>
 
   <!-- CONTEÚDO PRINCIPAL (HOME) -->
-  <main class="hero">
-    <!-- Logo agos dsgn (Ativo 2.png) -->
-    <img src="Ativo%202.png" alt="agos dsgn" class="logo-img">
-
-    <p class="hero-subtitle">Design, identidade visual e portfólio de projetos.</p>
+  <main class="main-container">
     
-    <!-- Link apontando para a página de projetos -->
-    <a href="projetos.html" class="btn-projects">Ver Projetos &#8594;</a>
+    <!-- ESQUERDA: LOGO + SEU TEXTO ORIGINAL + BOTÃO -->
+    <section class="bio-column">
+      <!-- Logo agos dsgn (Ativo 6.png ou Ativo 2.png) -->
+      <img src="Ativo%206.png" alt="agos dsgn" class="logo-img">
+
+      <div class="bio-text">
+        <p>Desde muito nova, sempre fui curiosa e tagarela. Amava questionar tudo que podia!</p>
+        
+        <p class="italic">Sempre me interessei por processos, maneiras de resolver problemas, entender o porquê das coisas, encontrar significado nos detalhes e descobrir o que faz uma ideia funcionar. Criar, para mim, sempre foi consequência dessa curiosidade.</p>
+        
+        <p>Talvez por isso o design tenha feito tanto sentido. Encontrei uma profissão onde observar, questionar e entender fazem parte do trabalho.</p>
+        
+        <p>Hoje, uso toda essa bagagem para ajudar marcas a descobrirem seu potencial e transformá-lo em algo que faça sentido, tenha personalidade e seja verdadeiramente seu.</p>
+      </div>
+
+      <a href="projetos.html" class="btn-projects">ver projetos &#8594;</a>
+    </section>
+
+    <!-- DIREITA: SUA FOTO COM AS ESTRELAS FIXAS DA COMPOSIÇÃO -->
+    <section class="photo-column">
+      <div class="photo-wrapper">
+        <!-- Estrelas maiores decorando a foto -->
+        <span class="photo-star star-top-left">✶</span>
+        <span class="photo-star star-top-right">✦</span>
+        <span class="photo-star star-bottom-right">✶</span>
+
+        <!-- Sua foto carregada como ativo.JPEG -->
+        <img src="ativo.JPEG" alt="Sua foto" class="profile-photo">
+      </div>
+    </section>
+
   </main>
 
   <script>
-    // Gerador de Estrelas na cor #98cdeb
+    // Gerador de Estrelas Flutuantes no Fundo (#98cdeb)
     const container = document.getElementById('stars-container');
     const starIcons = ['✦', '✧', '✶', '✵'];
 

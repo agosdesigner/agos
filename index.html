@@ -33,8 +33,8 @@
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none; /* Não bloqueia os cliques nos links/botões da página */
-      z-index: 10;
+      pointer-events: none;
+      z-index: 1000; /* Alto para ficar acima do fundo e da foto */
       overflow: hidden;
     }
 
@@ -45,21 +45,22 @@
       user-select: none;
       -webkit-user-select: none;
       cursor: grab;
-      pointer-events: auto; /* Apenas as estrelas recebem o toque/clique */
+      pointer-events: auto; /* Permite arrastar */
       touch-action: none;
       transition: color 0.2s ease, transform 0.1s ease;
-      z-index: 11;
+      z-index: 1000;
     }
 
     .draggable-star:hover {
       color: #572c19;
     }
 
-    .draggable-star.dragging {
+    .draggable-star.dragging,
+    .photo-star.dragging {
       cursor: grabbing;
       color: #572c19;
       transform: scale(1.3);
-      z-index: 9999 !important;
+      z-index: 99999 !important; /* Sempre no topo enquanto arrasta */
     }
 
     /* Faixa Superior Infinita (#98cdeb) */
@@ -70,7 +71,7 @@
       padding: 6px 0;
       width: 100%;
       position: relative;
-      z-index: 20;
+      z-index: 2000;
     }
 
     .ticker-track {
@@ -138,7 +139,7 @@
       margin-top: 25px;
       transition: transform 0.2s ease, opacity 0.2s ease;
       position: relative;
-      z-index: 500; /* Garante que o link fique 100% livre para clique */
+      z-index: 2000; /* Garante que o clique no link funcione perfeitamente */
       cursor: pointer;
     }
 
@@ -172,7 +173,7 @@
       width: 100%;
       margin-bottom: 25px;
       position: relative;
-      z-index: 500;
+      z-index: 2000;
     }
 
     .social-bar a {
@@ -215,6 +216,7 @@
       position: relative;
       width: 100%;
       max-width: 380px;
+      z-index: 10;
     }
 
     .profile-photo {
@@ -224,6 +226,8 @@
       border-radius: 4px;
       box-shadow: 0 10px 30px rgba(22, 10, 5, 0.08);
       user-select: none;
+      position: relative;
+      z-index: 10;
     }
 
     /* Estrelas Decorativas da Foto */
@@ -235,7 +239,7 @@
       cursor: grab;
       pointer-events: auto;
       touch-action: none;
-      z-index: 100;
+      z-index: 1500; /* Acima da foto */
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
       transition: transform 0.1s ease;
     }
@@ -421,6 +425,11 @@
         startLeft = rect.left + window.scrollX;
         startTop = rect.top + window.scrollY;
 
+        // Se for estrela da foto, traz para o container global ao arrastar
+        if (el.classList.contains('photo-star') && el.parentElement !== container) {
+          container.appendChild(el);
+        }
+
         el.style.position = 'absolute';
         el.style.left = startLeft + 'px';
         el.style.top = startTop + 'px';
@@ -445,8 +454,6 @@
         isDragging = false;
         el.classList.remove('dragging');
 
-        el.style.position = 'absolute';
-
         try {
           el.releasePointerCapture(e.pointerId);
         } catch (err) {}
@@ -465,8 +472,8 @@
       star.className = 'draggable-star';
       star.innerHTML = starIcons[Math.floor(Math.random() * starIcons.length)];
       
-      const initialX = Math.random() * (window.innerWidth - 50) + window.scrollX;
-      const initialY = Math.random() * (window.innerHeight - 50) + window.scrollY;
+      const initialX = Math.random() * (window.innerWidth - 60) + window.scrollX;
+      const initialY = Math.random() * (document.body.scrollHeight - 60);
       
       star.style.position = 'absolute';
       star.style.left = initialX + 'px';

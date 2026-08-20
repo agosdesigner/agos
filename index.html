@@ -26,41 +26,40 @@
       min-height: 100vh;
     }
 
-    /* Container de Estrelas do Fundo */
+    /* Container de Estrelas Arrastáveis (Fica no topo absoluto de tudo) */
     #stars-container {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      z-index: 1000; /* Alto para ficar acima do fundo e da foto */
+      pointer-events: none; /* Deixa o resto do site clicável */
+      z-index: 9999; /* Garante que fique acima da foto e textos */
       overflow: hidden;
     }
 
-    /* Estrelas Arrastáveis (Gerais) */
+    /* Estrelas Azuis Arrastáveis */
     .draggable-star {
       position: absolute;
       color: #98cdeb; /* Baby Blue */
       user-select: none;
       -webkit-user-select: none;
       cursor: grab;
-      pointer-events: auto; /* Permite arrastar */
+      pointer-events: auto; /* Torna apenas a estrela clicável */
       touch-action: none;
       transition: color 0.2s ease, transform 0.1s ease;
-      z-index: 1000;
+      z-index: 9999;
     }
 
     .draggable-star:hover {
       color: #572c19;
     }
 
-    .draggable-star.dragging,
-    .photo-star.dragging {
+    .draggable-star.dragging {
       cursor: grabbing;
       color: #572c19;
-      transform: scale(1.3);
-      z-index: 99999 !important; /* Sempre no topo enquanto arrasta */
+      transform: scale(1.4);
+      z-index: 100000 !important;
     }
 
     /* Faixa Superior Infinita (#98cdeb) */
@@ -71,7 +70,7 @@
       padding: 6px 0;
       width: 100%;
       position: relative;
-      z-index: 2000;
+      z-index: 200;
     }
 
     .ticker-track {
@@ -106,7 +105,7 @@
       gap: 60px;
       align-items: flex-start;
       position: relative;
-      z-index: 15;
+      z-index: 10;
     }
 
     /* Coluna Esquerda: Logo, Texto, Projetos */
@@ -139,7 +138,7 @@
       margin-top: 25px;
       transition: transform 0.2s ease, opacity 0.2s ease;
       position: relative;
-      z-index: 2000; /* Garante que o clique no link funcione perfeitamente */
+      z-index: 50;
       cursor: pointer;
     }
 
@@ -155,7 +154,7 @@
       opacity: 0.85;
     }
 
-    /* Coluna Direita: Redes + Foto com Estrelas */
+    /* Coluna Direita: Redes + Foto com Estrelas Marrons Fixas */
     .right-side {
       display: flex;
       flex-direction: column;
@@ -173,7 +172,7 @@
       width: 100%;
       margin-bottom: 25px;
       position: relative;
-      z-index: 2000;
+      z-index: 50;
     }
 
     .social-bar a {
@@ -230,18 +229,14 @@
       z-index: 10;
     }
 
-    /* Estrelas Decorativas da Foto */
+    /* Estrelas Marrons FIXAS (Não se mexem) */
     .photo-star {
       position: absolute;
       color: #572c19;
       user-select: none;
-      -webkit-user-select: none;
-      cursor: grab;
-      pointer-events: auto;
-      touch-action: none;
-      z-index: 1500; /* Acima da foto */
+      pointer-events: none; /* Impede que interfiram com o arrasto ou clique */
+      z-index: 15;
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-      transition: transform 0.1s ease;
     }
 
     .star-top-left {
@@ -272,11 +267,7 @@
         padding-top: 15px;
       }
 
-      .right-side {
-        display: contents;
-      }
-
-      .left-side {
+      .right-side, .left-side {
         display: contents;
       }
 
@@ -326,7 +317,7 @@
 </head>
 <body>
 
-  <!-- CONTAINER DE ESTRELAS ARRASTÁVEIS -->
+  <!-- CONTAINER DE ESTRELAS AZUIS ARRASTÁVEIS -->
   <div id="stars-container"></div>
 
   <!-- FAIXA SUPERIOR INFINITA -->
@@ -395,6 +386,7 @@
       </nav>
 
       <div class="photo-wrapper">
+        <!-- Estrelas Marrons FIXAS -->
         <span class="photo-star star-top-left">✶</span>
         <span class="photo-star star-top-right">✦</span>
         <span class="photo-star star-bottom-right">✶</span>
@@ -421,20 +413,11 @@
         startY = e.clientY;
 
         const rect = el.getBoundingClientRect();
-        
         startLeft = rect.left + window.scrollX;
         startTop = rect.top + window.scrollY;
 
-        // Se for estrela da foto, traz para o container global ao arrastar
-        if (el.classList.contains('photo-star') && el.parentElement !== container) {
-          container.appendChild(el);
-        }
-
-        el.style.position = 'absolute';
         el.style.left = startLeft + 'px';
         el.style.top = startTop + 'px';
-        el.style.bottom = 'auto';
-        el.style.right = 'auto';
 
         el.setPointerCapture(e.pointerId);
       });
@@ -463,32 +446,26 @@
       el.addEventListener('pointercancel', stopDrag);
     }
 
-    // 1. Gerar estrelas do fundo
+    // Gerar estrelas azuis arrastáveis espalhadas
     const isMobile = window.innerWidth <= 850;
-    const totalBackgroundStars = isMobile ? 12 : 25;
+    const totalStars = isMobile ? 15 : 30;
 
-    for (let i = 0; i < totalBackgroundStars; i++) {
+    for (let i = 0; i < totalStars; i++) {
       const star = document.createElement('span');
       star.className = 'draggable-star';
       star.innerHTML = starIcons[Math.floor(Math.random() * starIcons.length)];
       
-      const initialX = Math.random() * (window.innerWidth - 60) + window.scrollX;
+      const initialX = Math.random() * (window.innerWidth - 60);
       const initialY = Math.random() * (document.body.scrollHeight - 60);
       
-      star.style.position = 'absolute';
       star.style.left = initialX + 'px';
       star.style.top = initialY + 'px';
-      star.style.fontSize = (Math.random() * 16 + 18) + 'px';
+      star.style.fontSize = (Math.random() * 18 + 18) + 'px';
 
       makeDraggable(star);
       container.appendChild(star);
     }
-
-    // 2. Ativar arrasto nas estrelas da foto
-    document.querySelectorAll('.photo-star').forEach(star => {
-      makeDraggable(star);
-    });
   </script>
 
 </body>
-</html>
+</html>s

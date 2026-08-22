@@ -116,12 +116,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 30px;
+      gap: 35px;
       width: 100%;
     }
 
     .project-card {
       flex: 1;
+      height: 280px; /* Altura idêntica para os dois */
       background-color: #ffffff;
       border-radius: 16px;
       overflow: hidden;
@@ -130,10 +131,20 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    /* Estrela Divisora */
+    /* Trava o tamanho idêntico e recorta a imagem para não deformar */
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(100%);
+      transition: filter 0.4s ease, transform 0.4s ease;
+    }
+
+    /* Estrela Divisora Maior */
     .divider-star {
-      width: 50px;
-      height: 50px;
+      width: 90px;
+      height: 90px;
       flex-shrink: 0;
       display: flex;
       align-items: center;
@@ -144,15 +155,6 @@
       width: 100%;
       height: 100%;
       fill: #572c19;
-    }
-
-    /* Capa em Preto e Branco */
-    .project-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-      filter: grayscale(100%);
-      transition: filter 0.4s ease, transform 0.4s ease;
     }
 
     /* Efeito ao passar o mouse */
@@ -195,7 +197,7 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    /* Imagens internas do modal coloridas normalmente */
+    /* Imagens internas do modal coloridas e em tamanho normal */
     .modal-content img {
       width: 100%;
       height: auto;
@@ -238,7 +240,8 @@
 
     @media (max-width: 768px) {
       .projects-wrapper { flex-direction: column; gap: 20px; }
-      .divider-star { transform: rotate(90deg); margin: 10px 0; }
+      .project-card { width: 100%; height: 220px; }
+      .divider-star { transform: rotate(90deg); margin: 10px 0; width: 60px; height: 60px; }
       .close-btn { top: 15px; right: 15px; width: 38px; height: 38px; }
       .modal-content { max-height: 85vh; }
       .back-link { font-size: 1.3rem; }
@@ -300,7 +303,7 @@
         <img src="images/capa_davipan.jpg.png" alt="Capa Jornada Davipan">
       </div>
 
-      <!-- ESTRELA NO MEIO -->
+      <!-- ESTRELA NO MEIO (AUMENTADA) -->
       <div class="divider-star">
         <svg viewBox="0 0 100 100">
           <path d="M50 0 L55 35 L90 10 L65 45 L100 50 L65 55 L90 90 L55 65 L50 100 L45 65 L10 90 L35 55 L0 50 L35 45 L10 10 L45 35 Z"/>

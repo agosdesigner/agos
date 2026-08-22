@@ -96,7 +96,7 @@
       z-index: 2;
     }
 
-    /* Link "voltar para o início" direcionando para index.html */
+    /* Link "voltar para o início" */
     .back-link {
       display: inline-block;
       color: #572c19; /* Brown Sugar */
@@ -265,7 +265,6 @@
   </div>
 
   <div class="container">
-    <!-- LINK DIRECIONANDO DIRETAMENTE PARA O INDEX.HTML -->
     <a href="index.html" class="back-link">&larr; voltar para o início</a>
 
     <!-- Título da página -->
@@ -273,17 +272,25 @@
       <img src="images/Ativo%2012.png" alt="projetos" style="width: 200px; height: auto;">
     </div>
 
-    <!-- CARD APENAS DA CAPA (EM PRETO E BRANCO) -->
+    <!-- GRID DE PROJETOS -->
     <div class="projects-grid">
-      <div class="project-card" onclick="openModal()">
+      
+      <!-- PROJETO 1: DAVIPAN -->
+      <div class="project-card" onclick="openModal('modalDavipan')">
         <img src="images/capa_davipan.jpg.png" alt="Capa Jornada Davipan">
       </div>
+
+      <!-- PROJETO 2: CALIGGIO -->
+      <div class="project-card" onclick="openModal('modalCaliggio')">
+        <img src="images/CAPA%20SITE.png" alt="Capa Caliggio">
+      </div>
+
     </div>
   </div>
 
-  <!-- TELA MAIOR (MODAL) COM AS FOTOS DO PROJETO -->
-  <div class="modal-overlay" id="projectModal" onclick="closeModalOnOuterClick(event)">
-    <button class="close-btn" onclick="closeModal()">&times;</button>
+  <!-- MODAL PROJETO 1: DAVIPAN -->
+  <div class="modal-overlay" id="modalDavipan" onclick="closeModalOnOuterClick(event, 'modalDavipan')">
+    <button class="close-btn" onclick="closeModal('modalDavipan')">&times;</button>
     <div class="modal-content">
       <img src="images/capa_davipan.jpg.png" alt="Capa Davipan">
       <img src="images/foto2.jpg.png" alt="Davipan - Foto 2">
@@ -297,6 +304,24 @@
       <img src="images/foto10.jpg.png" alt="Davipan - Foto 10">
       <img src="images/fot11.jpg.png" alt="Davipan - Foto 11">
       <img src="images/foto12.jpg.png" alt="Davipan - Foto 12">
+    </div>
+  </div>
+
+  <!-- MODAL PROJETO 2: CALIGGIO (SEM A CAPA SITE NO INTERIOR) -->
+  <div class="modal-overlay" id="modalCaliggio" onclick="closeModalOnOuterClick(event, 'modalCaliggio')">
+    <button class="close-btn" onclick="closeModal('modalCaliggio')">&times;</button>
+    <div class="modal-content">
+      <img src="images/1.png" alt="Caliggio - Foto 1">
+      <img src="images/2.png" alt="Caliggio - Foto 2">
+      <img src="images/3.png" alt="Caliggio - Foto 3">
+      <img src="images/4.png" alt="Caliggio - Foto 4">
+      <img src="images/5.png" alt="Caliggio - Foto 5">
+      <img src="images/6.png" alt="Caliggio - Foto 6">
+      <img src="images/7.png" alt="Caliggio - Foto 7">
+      <img src="images/8.png" alt="Caliggio - Foto 8">
+      <img src="images/9.png" alt="Caliggio - Foto 9">
+      <img src="images/10.png" alt="Caliggio - Foto 10">
+      <img src="images/11.png" alt="Caliggio - Foto 11">
     </div>
   </div>
 
@@ -317,20 +342,20 @@
       container.appendChild(star);
     }
 
-    // Modal
-    function openModal() {
-      document.getElementById('projectModal').classList.add('active');
+    // Modal com ID dinâmico
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
       document.body.style.overflow = 'hidden';
     }
 
-    function closeModal() {
-      document.getElementById('projectModal').classList.remove('active');
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
       document.body.style.overflow = 'auto';
     }
 
-    function closeModalOnOuterClick(event) {
+    function closeModalOnOuterClick(event, id) {
       if (event.target.classList.contains('modal-overlay')) {
-        closeModal();
+        closeModal(id);
       }
     }
   </script>

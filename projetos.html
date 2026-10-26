@@ -307,16 +307,6 @@
         <div class="project-card" onclick="openModal('modalCaliggio')">
           <img src="images/CAPA%20SITE.png" alt="Capa Caliggio">
         </div>
-
-        <!-- Estrela abaixo do Caliggio -->
-        <div class="divider-star mobile-star">
-          <svg viewBox="0 0 100 100"><path d="M50 0 L55 35 L90 10 L65 45 L100 50 L65 55 L90 90 L55 65 L50 100 L45 65 L10 90 L35 55 L0 50 L35 45 L10 10 L45 35 Z"/></svg>
-        </div>
-
-        <!-- 3. DAVIPAN COM ELAS -->
-        <div class="project-card" onclick="openModal('modalDavipanElas')">
-          <img src="images/capa%20davpan%20c%20elas.jpg" alt="Capa Davipan com Elas">
-        </div>
       </div>
 
       <!-- ESTRELA CENTRAL DESKTOP -->
@@ -331,9 +321,19 @@
           <svg viewBox="0 0 100 100"><path d="M50 0 L55 35 L90 10 L65 45 L100 50 L65 55 L90 90 L55 65 L50 100 L45 65 L10 90 L35 55 L0 50 L35 45 L10 10 L45 35 Z"/></svg>
         </div>
 
-        <!-- STUDIO -->
+        <!-- 3. STUDIO -->
         <div class="project-card" onclick="openModal('modalStudio')">
           <img src="images/studio%20capa%20e%20slide%202.PNG" alt="Capa Studio">
+        </div>
+
+        <!-- Estrela Mobile -->
+        <div class="divider-star mobile-star">
+          <svg viewBox="0 0 100 100"><path d="M50 0 L55 35 L90 10 L65 45 L100 50 L65 55 L90 90 L55 65 L50 100 L45 65 L10 90 L35 55 L0 50 L35 45 L10 10 L45 35 Z"/></svg>
+        </div>
+
+        <!-- 4. DAVIPAN COM ELAS -->
+        <div class="project-card" onclick="openModal('modalDavipanElas')">
+          <img src="images/capa%20davipan%20c%20elas.jpg" alt="Capa Davipan com Elas">
         </div>
       </div>
 
@@ -381,7 +381,7 @@
   <div class="modal-overlay" id="modalDavipanElas" onclick="closeModalOnOuterClick(event, 'modalDavipanElas')">
     <button class="close-btn" onclick="closeModal('modalDavipanElas')">&times;</button>
     <div class="modal-content">
-      <img src="images/capa%20davpan%20c%20elas.jpg" alt="Davipan com Elas 1">
+      <img src="images/capa%20davipan%20c%20elas.jpg" alt="Davipan com Elas 1">
       <img src="images/davipan%20c%20elas%202.jpg" alt="Davipan com Elas 2">
       <img src="images/davipan%20c%20elas%203.jpg" alt="Davipan com Elas 3">
     </div>
@@ -427,9 +427,3 @@
     function closeModalOnOuterClick(event, id) {
       if (event.target.classList.contains('modal-overlay')) {
         closeModal(id);
-      }
-    }
-  </script>
-
-</body>
-</html>

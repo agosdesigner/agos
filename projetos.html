@@ -294,7 +294,7 @@
 
       <!-- 4. DAVIPAN COM ELAS (Linha 2, Direita) -->
       <div class="project-card" onclick="openModal('modalDavipanElas')">
-        <img src="images/capa%20davipan%20c%20elas.jpg" alt="Capa Davipan com Elas">
+        <img src="images/capa%20davipan%20c%20elas.png" alt="Capa Davipan com Elas">
       </div>
 
     </div>
@@ -352,7 +352,7 @@
   <div class="modal-overlay" id="modalDavipanElas" onclick="closeModalOnOuterClick(event, 'modalDavipanElas')">
     <button class="close-btn" onclick="closeModal('modalDavipanElas')">&times;</button>
     <div class="modal-content">
-      <img src="images/capa%20davipan%20c%20elas.jpg" alt="Davipan com Elas 1">
+      <img src="images/davipan%20c%20elas%201.png" alt="Davipan com Elas 1">
       <img src="images/davipan%20c%20elas%202.jpg" alt="Davipan com Elas 2">
       <img src="images/davipan%20c%20elas%203.jpg" alt="Davipan com Elas 3">
     </div>
@@ -374,22 +374,4 @@
       container.appendChild(star);
     }
 
-    function openModal(id) {
-      document.getElementById(id).classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-
-    function closeModalOnOuterClick(event, id) {
-      if (event.target.classList.contains('modal-overlay')) {
-        closeModal(id);
-      }
-    }
-  </script>
-
-</body>
-</html>
+    function openModal

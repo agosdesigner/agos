@@ -38,7 +38,7 @@
       width: 100vw;
       height: 100vh;
       pointer-events: none;
-      z-index: 0;
+      z-index: 1;
       overflow: hidden;
     }
 
@@ -374,4 +374,22 @@
       container.appendChild(star);
     }
 
-    function openModal
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function closeModalOnOuterClick(event, id) {
+      if (event.target.classList.contains('modal-overlay')) {
+        closeModal(id);
+      }
+    }
+  </script>
+
+</body>
+</html>

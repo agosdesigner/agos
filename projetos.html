@@ -143,10 +143,9 @@
       transition: filter 0.4s ease, transform 0.4s ease;
     }
 
-    /* Ajuste específico para a capa do Davipan com Elas aparecer inteira */
-    .project-card img.fit-contain {
-      object-fit: contain;
-      background-color: #ffffff;
+    /* Ajuste específico para centralizar perfeitamente a capa nova sem barras brancas */
+    .project-card img.center-cover {
+      object-position: center;
     }
 
     .project-card:hover {
@@ -300,7 +299,7 @@
 
       <!-- 4. DAVIPAN COM ELAS (Linha 2, Direita) -->
       <div class="project-card" onclick="openModal('modalDavipanElas')">
-        <img src="images/capa%20davipan%20c%20elas.png" alt="Capa Davipan com Elas" class="fit-contain">
+        <img src="images/capa%20davipan%20c%20elas.png" alt="Capa Davipan com Elas" class="center-cover">
       </div>
 
     </div>

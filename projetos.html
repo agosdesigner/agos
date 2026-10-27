@@ -363,45 +363,7 @@
   <div class="modal-overlay" id="modalDizorder" onclick="closeModalOnOuterClick(event, 'modalDizorder')">
     <button class="close-btn" onclick="closeModal('modalDizorder')">&times;</button>
     <div class="modal-content">
+      <img src="images/capa%20dizorder.png" alt="Capa Dizorder">
       <img src="images/dizorder%202.png" alt="Dizorder 2">
       <img src="images/dizorder%203.png" alt="Dizorder 3">
-      <img src="images/dizorder%204.png" alt="Dizorder 4">
-      <img src="images/dizorder%205.png" alt="Dizorder 5">
-    </div>
-  </div>
-
-  <script>
-    const container = document.getElementById('stars-container');
-    const starIcons = ['✦', '✧', '✶', '✵'];
-
-    for (let i = 0; i < 30; i++) {
-      const star = document.createElement('span');
-      star.className = 'star';
-      star.innerHTML = starIcons[Math.floor(Math.random() * starIcons.length)];
-      star.style.left = Math.random() * 100 + 'vw';
-      star.style.top = Math.random() * 100 + 'vh';
-      star.style.fontSize = (Math.random() * 14 + 12) + 'px';
-      star.style.animationDelay = (Math.random() * 4) + 's';
-      star.style.animationDuration = (Math.random() * 3 + 3) + 's';
-      container.appendChild(star);
-    }
-
-    function openModal(id) {
-      document.getElementById(id).classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.remove('active');
-      document.body.style.overflow = 'auto';
-    }
-
-    function closeModalOnOuterClick(event, id) {
-      if (event.target.classList.contains('modal-overlay')) {
-        closeModal(id);
-      }
-    }
-  </script>
-
-</body>
-</html>
+      <img src="images/dizorder%204.png" alt="Dizorder

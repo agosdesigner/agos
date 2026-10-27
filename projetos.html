@@ -143,12 +143,6 @@
       transition: filter 0.4s ease, transform 0.4s ease;
     }
 
-    /* Regra específica para o Davipan com Elas aparecer inteiro sem cortes */
-    .project-card img.fit-contain {
-      object-fit: contain;
-      background-color: #ffffff;
-    }
-
     .project-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(22, 10, 5, 0.12);
@@ -293,14 +287,14 @@
         <img src="images/studio%20capa%20e%20slide%202.PNG" alt="Capa Studio">
       </div>
 
-      <!-- ESTRELA LINHA 2 (Entre Studio e Davipan com Elas) -->
+      <!-- ESTRELA LINHA 2 (Entre Studio e Dizorder) -->
       <div class="divider-star">
         <svg viewBox="0 0 100 100"><path d="M50 0 L55 35 L90 10 L65 45 L100 50 L65 55 L90 90 L55 65 L50 100 L45 65 L10 90 L35 55 L0 50 L35 45 L10 10 L45 35 Z"/></svg>
       </div>
 
-      <!-- 4. DAVIPAN COM ELAS (Linha 2, Direita) -->
-      <div class="project-card" onclick="openModal('modalDavipanElas')">
-        <img src="images/capa%20davipan%20c%20elas.png" alt="Capa Davipan com Elas" class="fit-contain">
+      <!-- 4. DIZORDER (Linha 2, Direita) -->
+      <div class="project-card" onclick="openModal('modalDizorder')">
+        <img src="images/capa%20dizorder.png" alt="Capa Dizorder">
       </div>
 
     </div>
@@ -354,13 +348,14 @@
     </div>
   </div>
 
-  <!-- MODAL DAVIPAN COM ELAS -->
-  <div class="modal-overlay" id="modalDavipanElas" onclick="closeModalOnOuterClick(event, 'modalDavipanElas')">
-    <button class="close-btn" onclick="closeModal('modalDavipanElas')">&times;</button>
+  <!-- MODAL DIZORDER -->
+  <div class="modal-overlay" id="modalDizorder" onclick="closeModalOnOuterClick(event, 'modalDizorder')">
+    <button class="close-btn" onclick="closeModal('modalDizorder')">&times;</button>
     <div class="modal-content">
-      <img src="images/davipan%20c%20elas%201.png" alt="Davipan com Elas 1">
-      <img src="images/davipan%20c%20elas%202.jpg" alt="Davipan com Elas 2">
-      <img src="images/davipan%20c%20elas%203.jpg" alt="Davipan com Elas 3">
+      <img src="images/dizorder%202.png" alt="Dizorder 2">
+      <img src="images/dizorder%203.png" alt="Dizorder 3">
+      <img src="images/dizorder%204.png" alt="Dizorder 4">
+      <img src="images/dizorder%205.png" alt="Dizorder 5">
     </div>
   </div>
 
